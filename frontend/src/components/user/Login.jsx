@@ -28,10 +28,10 @@ export const Login = () => {
       setSubmitMessage(`¡Bienvenido a ColoFullChat ${data.User.name}!`);
 
       // Redirección después de 2 segundos
-       setTimeout(() => {
+      setTimeout(() => {
         setSubmitMessage(null); // Limpia el mensaje de bienvenida
-         window.location.reload(); // Recarga la página
-       }, 3000);
+        window.location.reload(); // Recarga la página
+      }, 3000);
     } else {
       setSubmitMessage("Algo no funcionó bien, revisa tus datos");
     }
@@ -40,29 +40,31 @@ export const Login = () => {
 
   return (
     <>
-      <div className="container__login">
-        <div className="content__post">
-          <div>
-            {submitMessage && (
-              <p className="mensaje-logeado">{submitMessage}</p>
-            )}
-          </div>
-          <form className="login-form" onSubmit={loginUser}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" onChange={changed} />
+      <div className="layout-login">
+        <div className="container__login">
+          <div className="content__post">
+            <div>
+              {submitMessage && (
+                <p className="mensaje-logeado">{submitMessage}</p>
+              )}
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" onChange={changed} />
-            </div>
+            <form className="login-form" onSubmit={loginUser}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" onChange={changed} />
+              </div>
 
-            <input
-              type="submit"
-              value="Identifícate"
-              className="btn btn-success"
-            />
-          </form>
+              <input
+                type="submit"
+                value="Identifícate"
+                className="btn btn-success"
+              />
+            </form>
+          </div>
         </div>
       </div>
     </>

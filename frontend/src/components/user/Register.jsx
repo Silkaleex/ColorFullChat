@@ -30,49 +30,53 @@ export const Register = () => {
 
   return (
     <>
-      <div className="container__formulario">
-        <header className="content__header">
-          <h1 className="content__title">Estas a un paso de ser uno mas,¿A que esperas?, Registrate </h1>
-        </header>
-        <div className="content__posts">
-          <div>
-            {<p className="mensaje-erroneo">{submitMessage}</p> && (
-              <p className="mensaje-enviado">{submitMessage}</p>
-            )}
+      <div className="layout-register">
+        <div className="container__formulario ">
+          <header className="content__header">
+            <h1 className="content__title">
+              Estas a un paso de ser uno mas,¿A que esperas?, Registrate{" "}
+            </h1>
+          </header>
+          <div className="content__posts">
+            <div>
+              {<p className="mensaje-erroneo">{submitMessage}</p> && (
+                <p className="mensaje-enviado">{submitMessage}</p>
+              )}
+            </div>
+
+            <form className="register-form" onSubmit={saveUser}>
+              <div className="form-group">
+                <label htmlFor="name">Nombre</label>
+                <input type="text" name="name" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="surname">Apellidos</label>
+                <input type="text" name="surname" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="nick">Nick</label>
+                <input type="text" name="nick" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="bio">bio</label>
+                <input type="text" name="bio" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Correo electronico</label>
+                <input type="email" name="email" onChange={changed} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Contraseña</label>
+                <input type="password" name="password" onChange={changed} />
+              </div>
+
+              <input
+                type="submit"
+                value="Registrate"
+                className="btn btn-success"
+              />
+            </form>
           </div>
-
-          <form className="register-form" onSubmit={saveUser}>
-            <div className="form-group">
-              <label htmlFor="name">Nombre</label>
-              <input type="text" name="name" onChange={changed} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="surname">Apellidos</label>
-              <input type="text" name="surname" onChange={changed} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="nick">Nick</label>
-              <input type="text" name="nick" onChange={changed} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="bio">bio</label>
-              <input type="text" name="bio" onChange={changed} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Correo electronico</label>
-              <input type="email" name="email" onChange={changed} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Contraseña</label>
-              <input type="password" name="password" onChange={changed} />
-            </div>
-
-            <input
-              type="submit"
-              value="Registrate"
-              className="btn btn-success"
-            />
-          </form>
         </div>
       </div>
     </>

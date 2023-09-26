@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Roboto:wght@300&family=Rubik+Iso&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Roboto:wght@300&family=Rubik+Iso&family=Rubik+Mono+One&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+
 /* 
 font-family: 'Playfair Display', serif;
 font-family: 'Roboto', sans-serif;
@@ -42,36 +44,78 @@ body {
   grid-template-columns: 70% 30%;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  background: linear-gradient(70deg, rgba(82,68,175,1) 0%, rgba(8,0,255,1) 20%, rgba(0,255,8,1) 40%, rgba(243,255,0,1) 60%, rgba(255,146,0,1) 80%, rgba(255,0,0,0.6671867586125089) 100%);
 }
-
+.layout-register {
+  display: grid;
+  grid-template-areas:
+    "nav nav "
+    "content aside";
+  grid-template-columns: 70% 30%;
+  width: 100%;
+  height: 100%;
+}
+.layout-login {
+  display: grid;
+  grid-template-areas:
+    "nav nav "
+    "content aside";
+  grid-template-columns: 70% 30%;
+  width: 100%;
+  height: 100%;
+}
 /* Portada */
 .container-portada {
-  background-image: url("../img/fondo-inicio.jpg");
-  background-position: center;
-  background-size: cover;
   text-align: center;
-  padding: 1.8% 0% 0% 0%;
-  margin: 0px auto;
-  width: 142.8%;
+  background-position: center;
+  background: linear-gradient( 70deg, rgba(82, 68, 175, 1) 0%, rgba(8, 0, 255, 1) 20%, rgba(0, 255, 8, 1) 40%, rgba(243, 255, 0, 1) 60%, rgba(255, 146, 0, 1) 80%, rgba(255, 0, 0, 0.6671867586125089) 100% );
+  padding: 0% 0% 0% 0%;
+  margin: -2% 0% 0% -6.1%;
+  width: 154.99%;
+  text-shadow: 1px 1px 1px #000;
+  min-height: 116.4%;
+
 }
 
 .portada {
-  padding: 2.34% 0%;
   margin: 0px auto;
   width: 50%;
   text-align: center;
 }
+
 .titulo {
-  font-size: 40px;
+  font-size: 50px;
+  width: 100%;
   font-family: "Rubik Mono One", sans-serif;
+  text-shadow: 1px 1px 1px #000;
+}
+
+span {
+  font-size: 1.2em;
+  margin-right: 4px;
+}
+
+.rojo {
+  color: red;
+}
+.naranja {
+  color: orange;
+}
+.amarillo {
+  color: yellow;
+}
+.verde {
+  color: green;
+}
+.azul {
+  color: blue;
+}
+.violeta {
+  color: violet;
 }
 
 .caja-principal {
   display: flex;
-  padding: 10% 11% 10% 17%;
+  padding: 0% 11% 4.8% 17%;
   font-size: 20px;
   justify-content: space-between;
   font-family: "Playfair Display", serif;
@@ -104,34 +148,47 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: bold;
 }
+
 .btn1 {
   padding: 2% 2%;
-  margin: 3% 0%;
+  margin: 3% 5%;
   border-radius: 10px;
   transition: all 300ms;
+  background-color: #38b000;
+  color: #9ef01a;
+  text-shadow: 1px 1px 1px #000;
 }
 .btn2 {
-  padding: 2% 2%;
-  margin: 3% 0%;
+  padding: 2% 0%;
+  margin: 3% 5%;
   border-radius: 10px;
   transition: all 300ms;
+  background-color: #38b000;
+  color: #9ef01a;
+  text-shadow: 1px 1px 1px #000;
 }
+
 .btn1:hover {
   padding: 2% 2%;
-  margin: 3% 0%;
-  border-radius: 5px;
+  margin: 3% 5%;
+  border-radius: 10px;
   transition: all 300ms;
+  background-color: #132a13;
+  color: #9ef01a;
+  text-shadow: 1px 1px 1px #000;
 }
 .btn2:hover {
-  padding: 2% 2%;
-  margin: 3% 0%;
-  border-radius: 5px;
+  padding: 2% 0%;
+  margin: 3% 5%;
+  border-radius: 10px;
   transition: all 300ms;
+  background-color: #132a13;
+  color: #9ef01a;
+  text-shadow: 1px 1px 1px #000;
 }
 /*ESTILOS NAVBAR*/
 .layout__navbar {
   width: 100%;
-  grid-area: nav;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -235,12 +292,9 @@ body {
 
 /*ESTILOS DE CONTENIDO*/
 .layout__content {
-    grid-area: content;
-    padding: 0% 1.5rem 3% 1.5rem;
-    margin: 0% 3% 3% 3%;
-    background-color: #dfb669bf;
-    border:1px solid #dfb669bf;
-    border-radius:5px;
+  grid-area: content;
+  padding: 0% 1.5rem 3% 1.5rem;
+  margin: 0% 3% 3% 3%;
 }
 
 .content__login {
@@ -446,29 +500,32 @@ body {
 .container__formulario {
   background-image: url("https://images.pexels.com/photos/5710947/pexels-photo-5710947.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
-  padding: 0.2% 0% 0.1% 0%;
-  margin: -2.2% -5%;
-  width: 156.98%;
+  padding: 0.2% 0% 0% 0%;
+  margin: -2.2% -6%;
+  width: 154.99%;
   text-shadow: 1px 1px 1px #000;
+  min-height: 115%;
 }
 .container__login {
   background-image: url("https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  padding: 0% 0% 7.9% 4%;
-  margin: -2.1% 0% 0% -5%;
-  width: 156.8%;
+  padding: 0% 0% 0% 0%;
+  margin: -2% 0% 0% -6%;
+  width: 154.99%;
+  text-shadow: 1px 1px 1px #000;
+  min-height: 119%;
 }
 /*ESTILOS BARRA LATERAL*/
 .layout__aside {
   grid-area: aside;
   margin-right: 2rem;
   background-color: #dfb669bf;
-  border:1px solid #dfb669bf;
-  border-radius:5px;
+  border: 1px solid #dfb669bf;
+  border-radius: 5px;
   padding: 0% 2%;
-  margin:0% 3% 3% 3%;
+  margin: 0% 3% 3% 3%;
 }
 
 .aside__container {

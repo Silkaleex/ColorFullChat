@@ -24,7 +24,8 @@ publicationRouter.post("/save", auth, async (req, res) => {
     // Crea una nueva instancia de la publicación con texto e imagen
     const nuevaPublicacion = new publicacion({
       text,
-      user: req.user.id
+      user: req.user.id,
+      createdAt: new Date(), 
     });
 
     // Verifica si se proporcionó texto

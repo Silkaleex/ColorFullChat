@@ -2,19 +2,45 @@ import React from "react";
 import avatar from "../../assets/img/user.png";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+function formatDate(dateString) {
+  const currentDate = new Date();
+  const publicationDate = new Date(dateString);
 
-export const PublicationList = (
-{  publications,
+  const timeDifference = currentDate - publicationDate;
+
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+
+  if (months > 0) {
+    return `Publicado hace ${months} ${months === 1 ? "mes" : "meses"}`;
+  } else if (days > 0) {
+    return `Publicado hace ${days} ${days === 1 ? "día" : "días"}`;
+  } else if (hours > 0) {
+    return `Publicado hace ${hours} ${hours === 1 ? "hora" : "horas"}`;
+  } else if (minutes > 0) {
+    return `Publicado hace ${minutes} ${minutes === 1 ? "minuto" : "minutos"}`;
+  } else {
+    return `Publicado hace ${seconds} ${seconds === 1 ? "segundo" : "segundos"}`;
+  }
+}
+
+export const PublicationList = ({
+  publications,
   setPublications,
   page,
   setPage,
-  loading,}
-) => {
+  loading,
+}) => {
   const { auth } = useAuth();
   const token = localStorage.getItem("token");
+
   const loadMorePublications = () => {
-    setPage(page + 1); 
+    setPage(page + 1);
   };
+
   const deletePublication = async (publicationId) => {
     const request = await fetch(
       `http://localhost:5000/api/publication/${publicationId}`,
@@ -41,7 +67,7 @@ export const PublicationList = (
           <article className="posts__post" key={publicacion._id}>
             <div className="post__container">
               <div className="post__image-user">
-                <a to="#" className="post__image-link">
+                <Link to="#" className="post__image-link">
                   {auth.image && auth.image !== "default.png" ? (
                     <img
                       src={`http://localhost:5000/api/upload/${auth.image}`}
@@ -55,7 +81,7 @@ export const PublicationList = (
                       alt="Foto de perfil"
                     />
                   )}
-                </a>
+                </Link>
               </div>
               <div className="post__body">
                 <div className="post__user-info">
@@ -64,7 +90,7 @@ export const PublicationList = (
                   </Link>
                   <span className="user-info__divider"> | </span>
                   <span className="user-info__create-date">
-                    {publicacion.createdAt}
+                    {formatDate(publicacion.created_at)}
                   </span>
                 </div>
                 <h4 className="post__content">{publicacion.text}</h4>

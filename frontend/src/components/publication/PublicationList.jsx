@@ -33,6 +33,7 @@ export const PublicationList = ({
   page,
   setPage,
   loading,
+  showLoadMoreButton
 }) => {
   const { auth } = useAuth();
   const token = localStorage.getItem("token");
@@ -109,14 +110,14 @@ export const PublicationList = ({
         ))}
       </div>
       <div className="content__container-btn">
-        {!loading && publications.length > 0 ? (
-          <button
-            className="content__btn-more-post"
-            onClick={loadMorePublications}
-          >
-            Ver más publicaciones
-          </button>
-        ) : null}
+      {!loading && publications.length > 0 && showLoadMoreButton ? (
+  <button
+    className="content__btn-more-post"
+    onClick={loadMorePublications}
+  >
+    Ver más publicaciones
+  </button>
+) : null}
       </div>
     </>
   );

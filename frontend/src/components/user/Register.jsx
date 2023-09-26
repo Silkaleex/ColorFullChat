@@ -32,7 +32,7 @@ export const Register = () => {
     <>
       <div className="container__formulario">
         <header className="content__header">
-          <h1 className="content__title">Registro</h1>
+          <h1 className="content__title">Estas a un paso de ser uno mas,¿A que esperas?, Registrate </h1>
         </header>
         <div className="content__posts">
           <div>

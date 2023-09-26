@@ -28,6 +28,7 @@ export const Profile = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalPublications, setTotalPublications] = useState(0); // Agregar estado para el número total de publicaciones
+  const [showLoadMoreButton, setShowLoadMoreButton] = useState(true); // Inicialmente mostrar el botón
 
   const token = localStorage.getItem("token");
 
@@ -46,36 +47,42 @@ export const Profile = () => {
     );
     const data = await request.json();
 console.log(data)
-    if (data.success) {
-      const formattedPublications = data.publicaciones.map((publication) => ({
-        ...publication,
-        createdAt: formatDate(publication.createdAt),
-      }));
+  
+if (data.success) {
+  const formattedPublications = data.publicaciones.map((publication) => ({
+    ...publication,
+    createdAt: formatDate(publication.createdAt),
+  }));
 
-      if (page === 1) {
-        // Si es la primera página, establece el número total de publicaciones
-        setTotalPublications(data.total); // Supongo que 'data.total' contiene el número total de publicaciones
-        // y establece las primeras 5 publicaciones
-        setPublications(formattedPublications.slice(0, 5));
-      } else {
-        // Si no es la primera página, agrega las siguientes 5 publicaciones
-        setPublications((prevPublications) => [
-          ...prevPublications,
-          ...formattedPublications.slice(
-            prevPublications.length,
-            prevPublications.length + 5
-          ),
-        ]);
-      }
+  if (page === 1) {
+    // Si es la primera página, establece el número total de publicaciones
+    setTotalPublications(data.total); // Supongo que 'data.total' contiene el número total de publicaciones
+    // y establece las primeras 5 publicaciones
+    setPublications(formattedPublications.slice(0, 5));
+    
+    // Ocultar el botón si no hay más de 5 publicaciones
+    setShowLoadMoreButton(data.total > 5);
+  } else {
+    // Si no es la primera página, agrega las siguientes 5 publicaciones
+    setPublications((prevPublications) => [
+      ...prevPublications,
+      ...formattedPublications.slice(
+        prevPublications.length,
+        prevPublications.length + 5
+      ),
+    ]);
 
-      setLoading(false);
-    } else {
-      // Si no hay publicaciones disponibles, establece publications en un array vacío
-      setPublications([]);
-      setLoading(false);
-    }
-   
-  };
+    // Ocultar el botón si no hay más publicaciones por cargar
+    setShowLoadMoreButton(data.total > page * 5);
+  }
+
+  setLoading(false);
+} else {
+  // Si no hay publicaciones disponibles, establece publications en un array vacío
+  setPublications([]);
+  setLoading(false);
+}
+};
 
   return (
     <>
@@ -90,7 +97,7 @@ console.log(data)
           page={page}
           setPage={setPage}
           loading={loading}
-
+          showLoadMoreButton={showLoadMoreButton} 
         />
       )}
     </>

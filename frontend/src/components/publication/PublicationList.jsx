@@ -68,7 +68,7 @@ export const PublicationList = ({
     <>
       <div className="fondo-perfil">
         <div className="layout">
-          <div className="content__posts">
+          <div className="content__po">
             {publications.map((publicacion) => (
               <article className="posts__post" key={publicacion._id}>
                 <div className="post__container">

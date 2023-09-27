@@ -170,10 +170,7 @@ export const People = () => {
                     <Link to="#" className="user-info__name">
                       {user.name} {user.surname}
                     </Link>
-                    <span className="user-info__divider"> | </span>
-                    <Link to="#" className="user-info__create-date">
-                      {user.created_at}
-                    </Link>
+                 
                   </div>
                   <h4 className="post__content">{user.bio}</h4>
                 </div>

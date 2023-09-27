@@ -51,12 +51,9 @@ export const Feed = () => {
         }));
   
         if (page === 1) {
-          // Si es la primera página, establece el número total de publicaciones
           setTotalPublications(data.total);
-          // y establece las primeras 5 publicaciones
           setPublications(formattedPublications.slice(0, 5));
         } else {
-          // Si no es la primera página, agrega las siguientes 5 publicaciones
           setPublications((prevPublications) => [
             ...prevPublications,
             ...formattedPublications.slice(
@@ -66,13 +63,11 @@ export const Feed = () => {
           ]);
         }
       } else {
-        // Si data.publicaciones no es un array, maneja el caso de error aquí.
-        // Puedes mostrar un mensaje de error o tomar la acción apropiada.
+
       }
   
       setLoading(false);
     } else {
-      // Si no hay publicaciones disponibles, establece publications en un array vacío
       setPublications([]);
       setLoading(false);
     }

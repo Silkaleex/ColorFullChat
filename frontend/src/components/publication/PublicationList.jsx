@@ -2,7 +2,6 @@ import React from "react";
 import avatar from "../../assets/img/user.png";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { Sidebar } from "../layout/private/Sidebar";
 function formatDate(dateString) {
   const currentDate = new Date();
   const publicationDate = new Date(dateString);
@@ -63,7 +62,7 @@ export const PublicationList = ({
       );
     }
   };
-
+  
   return (
     <>
       <div className="fondo-perfil">

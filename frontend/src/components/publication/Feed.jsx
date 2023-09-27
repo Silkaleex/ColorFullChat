@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import avatar from "../../assets/img/user.png";
-import useAuth from "../../hooks/useAuth";
 import { PublicationList } from "../publication/PublicationList";
 import { useParams } from "react-router-dom";
 
@@ -82,11 +80,6 @@ export const Feed = () => {
   
   return (
     <>
-      <header className="content__header">
-        <h1 className="content__title">Timeline</h1>
-        <button className="content__button">Mostrar nuevas</button>
-      </header>
-
       <PublicationList
         publications={publications}
         setPublications={setPublications}

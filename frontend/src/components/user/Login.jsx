@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const { form, changed } = useForm({});
@@ -31,11 +32,15 @@ export const Login = () => {
       setTimeout(() => {
         setSubmitMessage(null); // Limpia el mensaje de bienvenida
         window.location.reload(); // Recarga la página
-      }, 3000);
+      }, 2000);
     } else {
       setSubmitMessage("Algo no funcionó bien, revisa tus datos");
+
+      // Redirección después de 2 segundos en caso de error
+      setTimeout(() => {
+        setSubmitMessage(null); // Limpia el mensaje de error
+      }, 2000);
     }
-    console.log(data);
   };
 
   return (
@@ -45,7 +50,15 @@ export const Login = () => {
           <div className="content__post">
             <div>
               {submitMessage && (
-                <p className="mensaje-logeado">{submitMessage}</p>
+                <p
+                  className={`mensaje-logeado ${
+                    submitMessage === "Algo no funcionó bien, revisa tus datos"
+                      ? "mensaje-error-login"
+                      : "mensaje-enviado-login"
+                  }`}
+                >
+                  {submitMessage}
+                </p>
               )}
             </div>
             <form className="login-form" onSubmit={loginUser}>
@@ -61,9 +74,14 @@ export const Login = () => {
               <input
                 type="submit"
                 value="Identifícate"
-                className="btn btn-success"
+                className="login-boton"
               />
             </form>
+            
+            <div className="btn-login">
+              <Link className="btn-portada" to="/portada">Inicio</Link>
+              <Link className="btn-registro" to="/registro">Registrate</Link>
+            </div>
           </div>
         </div>
       </div>

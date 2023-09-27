@@ -21,7 +21,7 @@ export const PrivateLayout = () => {
   } else {
     return (
       <>
-        {/* Latouy */}
+        {/* Latyout */}
         {/* Cabecera y Navegación */}
         <Header />
         {/*Contenido Principal */}
@@ -29,7 +29,7 @@ export const PrivateLayout = () => {
           {auth._id ? <Outlet /> : <Navigate to="/login" />}
         </section>
         {/* Barra lateral */}
-        <Sidebar />
+        {/* <Sidebar /> */}
       </>
     );
   }

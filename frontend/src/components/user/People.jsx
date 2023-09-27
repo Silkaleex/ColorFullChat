@@ -4,8 +4,7 @@ import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 
 export const People = () => {
-
-const {auth}= useAuth();
+  const { auth } = useAuth();
   const [users, setUsers] = useState([]); // Estado para almacenar una lista de usuarios.
   const [page, setPage] = useState(1); // Estado para controlar la página actual.
   const [loading, setLoading] = useState(true); // Estado para controlar si se están cargando datos.
@@ -132,15 +131,16 @@ const {auth}= useAuth();
 
   return (
     <>
+     <div className="fondo-perfil2">
       <header className="content__header">
-        <h1 className="content__title">Gente</h1>
+        <h1 className="content__title">Usuarios</h1>
       </header>
 
-      <div className="content__posts">
+      <div className="content__pos">
         {loading ? (
           <p className="loading__users">
             Cargando usuarios
-            <br/>
+            <br />
             <span className="loader"></span>
           </p>
         ) : (
@@ -168,19 +168,18 @@ const {auth}= useAuth();
                 <div className="post__body">
                   <div className="post__user-info">
                     <Link to="#" className="user-info__name">
-                      {user.name} {user.surname}{" "}
+                      {user.name} {user.surname}
                     </Link>
                     <span className="user-info__divider"> | </span>
                     <Link to="#" className="user-info__create-date">
-                      {user.created_at}{" "}
+                      {user.created_at}
                     </Link>
                   </div>
-                  <h4 className="post__content">{user.bio}</h4>{" "}
+                  <h4 className="post__content">{user.bio}</h4>
                 </div>
               </div>
               {/* Solo muestra los botones cuando el usuario no es con el que me estoy identificando */}
               {user._id != auth._id && (
-
                 <div className="post__buttons">
                   {!following.includes(user._id) && (
                     <button
@@ -212,6 +211,7 @@ const {auth}= useAuth();
           </button>
         </div>
       )}
+      </div>
     </>
   );
 };

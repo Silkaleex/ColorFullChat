@@ -93,6 +93,7 @@ export const Sidebar = () => {
   };
   return (
     <>
+    <div className="layout-sidebar">
       <aside className="layout__aside">
         <header className="aside__header">
           <h1 className="aside__title">Hola, {auth.name}</h1>
@@ -203,6 +204,7 @@ export const Sidebar = () => {
           </div>
         </div>
       </aside>
+      </div>
     </>
   );
 };

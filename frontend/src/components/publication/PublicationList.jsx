@@ -2,6 +2,7 @@ import React from "react";
 import avatar from "../../assets/img/user.png";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { Sidebar } from "../layout/private/Sidebar";
 function formatDate(dateString) {
   const currentDate = new Date();
   const publicationDate = new Date(dateString);
@@ -23,7 +24,9 @@ function formatDate(dateString) {
   } else if (minutes > 0) {
     return `Publicado hace ${minutes} ${minutes === 1 ? "minuto" : "minutos"}`;
   } else {
-    return `Publicado hace ${seconds} ${seconds === 1 ? "segundo" : "segundos"}`;
+    return `Publicado hace ${seconds} ${
+      seconds === 1 ? "segundo" : "segundos"
+    }`;
   }
 }
 
@@ -33,7 +36,7 @@ export const PublicationList = ({
   page,
   setPage,
   loading,
-  showLoadMoreButton
+  showLoadMoreButton,
 }) => {
   const { auth } = useAuth();
   const token = localStorage.getItem("token");
@@ -63,61 +66,65 @@ export const PublicationList = ({
 
   return (
     <>
-      <div className="content__posts">
-        {publications.map((publicacion) => (
-          <article className="posts__post" key={publicacion._id}>
-            <div className="post__container">
-              <div className="post__image-user">
-                <Link to="#" className="post__image-link">
-                  {auth.image && auth.image !== "default.png" ? (
-                    <img
-                      src={`http://localhost:5000/api/upload/${auth.image}`}
-                      className="list-end__img"
-                      alt="Foto de perfil"
-                    />
-                  ) : (
-                    <img
-                      src={avatar}
-                      className="list-end__img"
-                      alt="Foto de perfil"
-                    />
-                  )}
-                </Link>
-              </div>
-              <div className="post__body">
-                <div className="post__user-info">
-                  <Link to="#" className="user-info__name">
-                    {auth.name}
-                  </Link>
-                  <span className="user-info__divider"> | </span>
-                  <span className="user-info__create-date">
-                    {formatDate(publicacion.created_at)}
-                  </span>
+      <div className="fondo-perfil">
+        <div className="layout">
+          <div className="content__posts">
+            {publications.map((publicacion) => (
+              <article className="posts__post" key={publicacion._id}>
+                <div className="post__container">
+                  <div className="post__image-user">
+                    <Link to="#" className="post__image-link">
+                      {auth.image && auth.image !== "default.png" ? (
+                        <img
+                          src={`http://localhost:5000/api/upload/${auth.image}`}
+                          className="list-end__img"
+                          alt="Foto de perfil"
+                        />
+                      ) : (
+                        <img
+                          src={avatar}
+                          className="list-end__img"
+                          alt="Foto de perfil"
+                        />
+                      )}
+                    </Link>
+                  </div>
+                  <div className="post__body">
+                    <div className="post__user-info">
+                      <Link to="#" className="user-info__name">
+                        {auth.name}
+                      </Link>
+                      <span className="user-info__divider"> | </span>
+                      <span className="user-info__create-date">
+                        {formatDate(publicacion.created_at)}
+                      </span>
+                    </div>
+                    <h4 className="post__content">{publicacion.text}</h4>
+                  </div>
                 </div>
-                <h4 className="post__content">{publicacion.text}</h4>
-              </div>
-            </div>
 
-            <div className="post__buttons">
+                <div className="post__buttons">
+                  <button
+                    onClick={() => deletePublication(publicacion._id)}
+                    className="post__button"
+                  >
+                    <i className="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="content__container-btn">
+            {!loading && publications.length > 0 && showLoadMoreButton ? (
               <button
-                onClick={() => deletePublication(publicacion._id)}
-                className="post__button"
+                className="content__btn-more-post"
+                onClick={loadMorePublications}
               >
-                <i className="fa-solid fa-trash-can"></i>
+                Ver más publicaciones
               </button>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div className="content__container-btn">
-      {!loading && publications.length > 0 && showLoadMoreButton ? (
-  <button
-    className="content__btn-more-post"
-    onClick={loadMorePublications}
-  >
-    Ver más publicaciones
-  </button>
-) : null}
+            ) : null}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "../../hooks/useForm";
+import { Link } from "react-router-dom";
 
 export const Register = () => {
   const { form, changed } = useForm({});
@@ -34,13 +35,24 @@ export const Register = () => {
         <div className="container__formulario ">
           <header className="content__header">
             <h1 className="content__title">
-              Estas a un paso de ser uno mas,¿A que esperas?, Registrate{" "}
+              Estas a un paso de ser uno mas,¿A que esperas?, Registrate
             </h1>
           </header>
           <div className="content__posts">
             <div>
-              {<p className="mensaje-erroneo">{submitMessage}</p> && (
+              {/* {<p className="mensaje-erroneo">{submitMessage}</p> && (
                 <p className="mensaje-enviado">{submitMessage}</p>
+              )} */}
+                  {submitMessage && (
+                <p
+                  className={`mensaje-logeado ${
+                    submitMessage === "Algo no funcionó bien, revisa tus datos"
+                      ? "mensaje-error"
+                      : "mensaje-enviado"
+                  }`}
+                >
+                  {submitMessage}
+                </p>
               )}
             </div>
 
@@ -76,6 +88,10 @@ export const Register = () => {
                 className="btn btn-success"
               />
             </form>
+            <div className="btn-login">
+              <Link className="btn-portada" to="/portada">Inicio</Link>
+              <Link className="btn-registro" to="/login">inica sesion</Link>
+            </div>
           </div>
         </div>
       </div>

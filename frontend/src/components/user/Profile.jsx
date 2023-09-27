@@ -3,6 +3,7 @@ import avatar from "../../assets/img/user.png";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { PublicationList } from "../publication/PublicationList";
+import { Sidebar } from "../layout/private/Sidebar";
 
 function formatDate(dateString) {
   const currentDate = new Date();
@@ -86,6 +87,7 @@ if (data.success) {
 
   return (
     <>
+    <div className="layout">
       {publications.length === 0 && !loading ? (
         <div className="no-publications-card">
           <p>No tienes publicaciones que mostrar.</p>
@@ -100,6 +102,8 @@ if (data.success) {
           showLoadMoreButton={showLoadMoreButton} 
         />
       )}
+      </div>
+      <Sidebar/>
     </>
   );
 };

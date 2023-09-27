@@ -7,6 +7,7 @@ export const Portada = () => {
     <>
       <div className="layout-register">
         <div className="container-portada">
+          <div className="fondo-portada">
           <div className="portada">
             <h1 className="titulo animate__animated animate__bounceIn">
               <span className="rojo">B</span>
@@ -46,12 +47,12 @@ export const Portada = () => {
               <div className="caja-principal">
                 <img src={logo} alt="ColorFullChat" className="logo-portada" />
                 <p className="txt-inicial">
-                  La red social para tod@s los colores
+                El apoyo es nuestra mayor fortaleza.
                 </p>
               </div>
             </div>
             <p className="txt-secundario">
-              Conoce a gente nueva y chatea a tu gusto sin complicaciones
+            Nuestra comunidad es nuestra familia. Unete y disfruta se uno mas!
             </p>
           </div>
 
@@ -62,6 +63,7 @@ export const Portada = () => {
             <Link to="/login" className="btn2">
               Ya eres usuario: Inicia sesión
             </Link>
+          </div>
           </div>
         </div>
       </div>

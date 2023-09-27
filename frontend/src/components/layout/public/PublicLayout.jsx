@@ -7,8 +7,8 @@ export const PublicLayout = () => {
   const { auth } = useAuth();
   return (
     <>
-      {/* Latouy */}
-      <Header />
+      {/* Layout */}
+      {/* <Header /> */}
 
       {/*Contenido Principal */}
       <section className="layout__content">

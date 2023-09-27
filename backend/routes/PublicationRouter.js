@@ -264,7 +264,6 @@ publicationRouter.get("/uploads/:file", auth, (req, res) => {
   });
 });
 // Feed de publicaciones
-// Feed de publicaciones
 publicationRouter.get("/feed/:page?", auth, async (req, res) => {
   try {
     const page = req.params.page || 1;

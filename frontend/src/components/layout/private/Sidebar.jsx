@@ -11,8 +11,6 @@ export const Sidebar = () => {
   const { form, changed } = useForm({});
   const [stored, setStored] = useState("not_stored");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-
-  // Agrega estados para los contadores
   const [publicationsCount, setPublicationsCount] = useState(0);
 
   const token = localStorage.getItem("token");

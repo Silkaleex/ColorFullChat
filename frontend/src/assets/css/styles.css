@@ -937,6 +937,7 @@ button:hover {
   padding: 7px 2px;
   width: 100%;
   text-align: center;
+  background-color:#008000;color:#f2e8cf;
 }
 .error-msm {
   font-size: 20px;
@@ -945,4 +946,6 @@ button:hover {
   padding: 7px 2px;
   width: 100%;
   text-align: center;
+  background-color:#660708;
+  color:#263946;
 }

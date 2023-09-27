@@ -44,24 +44,6 @@ export const PublicationList = ({
     setPage(page + 1);
   };
 
-  const deletePublication = async (publicationId) => {
-    const request = await fetch(
-      `http://localhost:5000/api/publication/${publicationId}`,
-      {
-        method: "DELETE",
-        headers: { "Content-type": "application/json", Authorization: token },
-      }
-    );
-    const data = await request.json();
-    if (data.success) {
-      // Elimina la publicación borrada del estado publications
-      setPublications((prevPublications) =>
-        prevPublications.filter(
-          (publication) => publication._id !== publicationId
-        )
-      );
-    }
-  };
 
   return (
     <div className="fondo-perfil">
@@ -93,28 +75,16 @@ export const PublicationList = ({
                 </div>
                 <div className="post__body">
                   <div className="post__user-info">
-                    <Link
-                      to={`/perfil/${publicacion.user._id}`}
-                      className="user-info__name"
-                    >
+                    <Link className="user-info__name">
                       {publicacion.user.name}
                     </Link>
                     <span className="user-info__divider"> | </span>
                     <span className="user-info__create-date">
-                      {formatDate(publicacion.createdAt)}
+                      {formatDate(auth.createdAt)}
                     </span>
                   </div>
                   <h4 className="post__content">{publicacion.text}</h4>
                 </div>
-              </div>
-
-              <div className="post__buttons">
-                <button
-                  onClick={() => deletePublication(publicacion._id)}
-                  className="post__button"
-                >
-                  <i className="fa-solid fa-trash-can"></i>
-                </button>
               </div>
             </article>
           ))}

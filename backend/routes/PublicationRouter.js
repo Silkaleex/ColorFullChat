@@ -264,23 +264,51 @@ publicationRouter.get("/uploads/:file", auth, (req, res) => {
   });
 });
 // Feed de publicaciones
+// Feed de publicaciones
 publicationRouter.get("/feed/:page?", auth, async (req, res) => {
   try {
-    // Consulta todas las publicaciones en la base de datos
-    const publicaciones = await publicacion.find();
+    const page = req.params.page || 1;
+    const limit = 5; // Número de publicaciones por página
+    const skip = (page - 1) * limit;
 
-    if (!publicaciones || publicaciones.length === 0) {
+    // Consulta todas las publicaciones con información del usuario que las hizo
+    const publications = await publicacion
+      .find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    if (!publications || publications.length === 0) {
       return res.status(404).send({
         success: false,
         message: "No hay publicaciones disponibles.",
       });
     }
 
-    // Devolver las publicaciones en formato JSON
+    // Recopila los IDs de los usuarios que hicieron las publicaciones
+    const userIds = publications.map((publication) => publication.user);
+
+    // Consulta la información de los usuarios que hicieron las publicaciones
+    const users = await user.find({ _id: { $in: userIds } }, 'name image');
+
+    // Mapea la información de los usuarios a cada publicación
+    const publicacionesConUsuarios = publications.map((publication) => {
+      const user = users.find((u) => u._id.equals(publication.user));
+      return {
+        _id: publication._id,
+        user: user,
+        text: publication.text,
+        createdAt: publication.createdAt,
+        // Agrega cualquier otro campo que necesites
+      };
+    });
+
+    // Devolver las publicaciones con información del usuario en formato JSON
     return res.status(200).json({
       success: true,
-      message: "Listado de todas las publicaciones",
-      publicaciones,
+      message: "Listado de todas las publicaciones con información del usuario",
+      publicaciones: publicacionesConUsuarios,
     });
   } catch (error) {
     return res.status(500).json({
@@ -289,6 +317,7 @@ publicationRouter.get("/feed/:page?", auth, async (req, res) => {
     });
   }
 });
+
 // Listado de publicaciones por ID de usuario y paginación opcional
 publicationRouter.get("/list/:userId/:page?", auth, async (req, res) => {
   try {

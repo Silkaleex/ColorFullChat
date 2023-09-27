@@ -351,7 +351,11 @@ span {
   height: 4rem;
   border-radius: 3.2rem;
 }
-
+.list-end__img2 {
+  width: 9rem;
+  height: 8rem;
+  border-radius: 100%;
+}
 .list-end__link {
   padding: 1.8rem;
 }

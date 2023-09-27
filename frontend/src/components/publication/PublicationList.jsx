@@ -62,69 +62,74 @@ export const PublicationList = ({
       );
     }
   };
-  
-  return (
-    <>
-      <div className="fondo-perfil">
-        <div className="layout">
-          <div className="content__po">
-            {publications.map((publicacion) => (
-              <article className="posts__post" key={publicacion._id}>
-                <div className="post__container">
-                  <div className="post__image-user">
-                    <Link to="#" className="post__image-link">
-                      {auth.image && auth.image !== "default.png" ? (
-                        <img
-                          src={`http://localhost:5000/api/upload/${auth.image}`}
-                          className="list-end__img"
-                          alt="Foto de perfil"
-                        />
-                      ) : (
-                        <img
-                          src={avatar}
-                          className="list-end__img"
-                          alt="Foto de perfil"
-                        />
-                      )}
-                    </Link>
-                  </div>
-                  <div className="post__body">
-                    <div className="post__user-info">
-                      <Link to="#" className="user-info__name">
-                        {auth.name}
-                      </Link>
-                      <span className="user-info__divider"> | </span>
-                      <span className="user-info__create-date">
-                        {formatDate(publicacion.created_at)}
-                      </span>
-                    </div>
-                    <h4 className="post__content">{publicacion.text}</h4>
-                  </div>
-                </div>
 
-                <div className="post__buttons">
-                  <button
-                    onClick={() => deletePublication(publicacion._id)}
-                    className="post__button"
+  return (
+    <div className="fondo-perfil">
+      <div className="layout">
+        <div className="content__po">
+          {publications.map((publicacion) => (
+            <article className="posts__post" key={publicacion._id}>
+              <div className="post__container">
+                <div className="post__image-user">
+                  <Link
+                    to={`/perfil/${publicacion.user._id}`}
+                    className="post__image-link"
                   >
-                    <i className="fa-solid fa-trash-can"></i>
-                  </button>
+                    {publicacion.user.image &&
+                    publicacion.user.image !== "default.png" ? (
+                      <img
+                        src={`http://localhost:5000/api/upload/${publicacion.user.image}`}
+                        className="list-end__img2"
+                        alt="Foto de perfil"
+                      />
+                    ) : (
+                      <img
+                        src={avatar}
+                        className="list-end__img2"
+                        alt="Foto de perfil"
+                      />
+                    )}
+                  </Link>
                 </div>
-              </article>
-            ))}
-          </div>
-          <div className="content__container-btn">
-            {!loading && publications.length > 0 && showLoadMoreButton ? (
-              <button
-                className="content__btn-more-post"
-                onClick={loadMorePublications}
-              >
-                Ver más publicaciones
-              </button>
-            ) : null}
-          </div>
+                <div className="post__body">
+                  <div className="post__user-info">
+                    <Link
+                      to={`/perfil/${publicacion.user._id}`}
+                      className="user-info__name"
+                    >
+                      {publicacion.user.name}
+                    </Link>
+                    <span className="user-info__divider"> | </span>
+                    <span className="user-info__create-date">
+                      {formatDate(publicacion.createdAt)}
+                    </span>
+                  </div>
+                  <h4 className="post__content">{publicacion.text}</h4>
+                </div>
+              </div>
+
+              <div className="post__buttons">
+                <button
+                  onClick={() => deletePublication(publicacion._id)}
+                  className="post__button"
+                >
+                  <i className="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="content__container-btn">
+          {!loading && publications.length > 0 && showLoadMoreButton ? (
+            <button
+              className="content__btn-more-post"
+              onClick={loadMorePublications}
+            >
+              Ver más publicaciones
+            </button>
+          ) : null}
         </div>
       </div>
-    </>
+    </div>
   );
 };

@@ -8,26 +8,21 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Llama a la función authUser al cargar el contexto
     authUser();
   }, []);
 
   const authUser = async () => {
-    // sacar datos del usuario identificado del localStorage
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("User");
 
-    // comprobar si tengo el token y user
     if (!token || !user) {
       setLoading(false);
       return false;
     }
 
-    // transformar los objetos a JavaScript
     const userObj = JSON.parse(user);
     const id = userObj._id;
 
-    // Peticion ajax al backend que compruebe el token y me devuelva los datos del usuario
     try {
       const request = await fetch(`http://localhost:5000/api/users/${id}`, {
         method: "GET",
@@ -40,7 +35,6 @@ export const AuthProvider = ({ children }) => {
       console.error("Error al obtener los datos del usuario:", error);
     }
 
-    // Peticion de contadores por ajax
     try {
       const requestCounters = await fetch(
         `http://localhost:5000/api/counters/${id}`,

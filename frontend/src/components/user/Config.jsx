@@ -75,11 +75,12 @@ export const Config = () => {
 
   return (
     <>
+ <div className="fondo-perfil">
       <header className="content__header">
         <h1 className="content__title">Ajustes</h1>
       </header>
 
-      <div className="content__posts">
+      <div className="content__posts1">
         <div className="container-msm">
           {isButtonClicked && (
             <p className={`enviado ${saved.includes("error") ? "error" : ""}`}>
@@ -152,6 +153,7 @@ export const Config = () => {
           <br />
           <input type="submit" value="actualizar" className="btn btn-success" />
         </form>
+      </div>
       </div>
     </>
   );

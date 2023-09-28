@@ -13,6 +13,7 @@ import { Portada } from "../Portada";
 import { Following } from "../components/follow/Following";
 import { Followers } from "../components/follow/Followers";
 import { Profile } from "../components/user/Profile";
+import { Timeline } from "../components/publication/Timeline";
 
 export const Routing = () => {
   return (
@@ -28,7 +29,8 @@ export const Routing = () => {
 
             <Route path="/social" element={<PrivateLayout />}>
               <Route index element={<Feed />} />
-              <Route path="feed" element={<Feed />} />
+              <Route path="timeline" element={<Timeline />} />
+              <Route path="timeline/:id" element={<Timeline />} />
               <Route path="logout" element={<Logout />} />
               <Route path="gente" element={<People />} />
               <Route path="ajustes" element={<Config />} />

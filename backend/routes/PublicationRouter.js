@@ -16,32 +16,70 @@ const storage = multer.diskStorage({
 });
 const uploads = multer({ storage });
 
-// Ruta para crear una nueva publicación
-publicationRouter.post("/save", auth, async (req, res) => {
+
+// Manteniendo el nombre de la ruta "/save"
+publicationRouter.post("/save", uploads.single("file0"), auth, async (req, res) => {
   try {
     const { text } = req.body;
+    const imagePath = req.file ? req.file.path : null;
 
-    // Crea una nueva instancia de la publicación con texto e imagen
-    const nuevaPublicacion = new publicacion({
-      text,
-      user: req.user.id,
-      createdAt: new Date(), 
-    });
-
-    // Verifica si se proporcionó texto
-    if (!text) {
+    // Comprueba si se proporcionó texto o imagen
+    if (!text && !imagePath) {
       return res.status(400).send({
         success: false,
         message: "No completaste todos los pasos",
       });
     }
 
+    // Crea una nueva instancia de la publicación con texto e imagen
+    const nuevaPublicacion = new publicacion({
+      text,
+      file: imagePath,
+      user: req.user.id,
+      createdAt: new Date(),
+    });
+
     // Guarda la publicación en la base de datos
     await nuevaPublicacion.save();
 
     return res.status(200).send({
       success: true,
-      message: "Publicación guardada con éxito",
+      message: "Publicación creada con éxito",
+      nuevaPublicacion,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Ruta para crear una publicación de texto con imagen
+publicationRouter.post("/create", uploads.single("file0"), auth, async (req, res) => {
+  try {
+    const { text } = req.body;
+    const imagePath = req.file ? req.file.path : null;
+
+    const nuevaPublicacion = new publicacion({
+      text,
+      file: imagePath,
+      user: req.user.id,
+      createdAt: new Date(),
+    });
+
+    if (!text && !imagePath) {
+      return res.status(400).send({
+        success: false,
+        message: "No completaste todos los pasos",
+      });
+    }
+
+    await nuevaPublicacion.save();
+
+    return res.status(200).send({
+      success: true,
+      message: "Publicación creada con éxito",
       nuevaPublicacion,
     });
   } catch (error) {
@@ -345,8 +383,29 @@ publicationRouter.get("/list/:userId/:page?", auth, async (req, res) => {
     });
   }
 });
+// Ruta para devolver archivos multimedia (imágenes)
+publicationRouter.get("/media/:file", auth, (req, res) => {
+  // Sacar el parámetro de la URL
+  const file = req.params.file;
 
+  // Montar la ruta real de la imagen
+  const filePath =
+    "./uploads/publications/" + file ||
+    path.join(__dirname, "uploads", "publications", file);
 
-// Publicacion de texto con imagen
+  // Comprobar si el archivo existe
+  fs.stat(filePath, (error, stats) => {
+    if (error || !stats.isFile()) {
+      return res.status(404).send({
+        status: false,
+        message: "No se encontró la imagen",
+      });
+    } else {
+      // Devolver el archivo
+      return res.sendFile(path.resolve(filePath));
+    }
+  });
+});
+
 
 module.exports = publicationRouter;

@@ -31,14 +31,12 @@ function formatDate(dateString) {
 
 export const PublicationList = ({
   publications,
-  setPublications,
   page,
   setPage,
   loading,
   showLoadMoreButton,
 }) => {
   const { auth } = useAuth();
-  const token = localStorage.getItem("token");
 
   const loadMorePublications = () => {
     setPage(page + 1);

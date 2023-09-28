@@ -428,6 +428,10 @@ span {
 .content__posts {
   width: 100%;
 }
+.content__posts1 {
+  width: 100%;
+  padding: 0% 40%;
+}
 
 .loading__users {
   font-size: 25px;
@@ -752,6 +756,18 @@ textarea {
   margin-bottom: 1rem;
 }
 
+.caja-input-img {
+  background-color: #e5f993;
+  width: 30%;
+  padding: 5% 3%;
+  border-top-left-radius: 90%;
+  border-top-right-radius: 90%;
+  border-bottom-left-radius: 90%;
+  border-bottom-right-radius: 0%;
+  text-shadow: 1px 1px 1px #000;
+  margin: 5rem 5rem 0rem 23rem;
+}
+
 .form-post__label,
 label {
   display: block;
@@ -759,7 +775,7 @@ label {
   font-weight: 700;
   font-size: 25px;
   letter-spacing: 2px;
-  color: #ffe570;
+  color:#ffa600;
 }
 
 .form-post__textarea,
@@ -785,11 +801,41 @@ textarea {
 .form-post__image {
   width: 100%;
 }
+.container-img {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+}
+.cuadro-img {
+  background-color: #e5f993;
+  border-radius: 15px;
+  width: 121%;
+  height: 19%;
+  padding: 1% 1% 5% 1%;
+  margin: 2rem 40rem 0rem 0rem;
+}
+.titulo-img{
+  font-size:15px;
+  font-weight:bold;
+  color:#ff8000;
+  text-shadow: 1px 1px 1px #000;
+}
+.texto-img{
+  font-size:20px;
+  font-weight:500;
+  color:#ffa600;
+  text-shadow: 1px 1px 1px #000;
+}
+.publicaciones-img{
+    display: flex;
+    flex-direction: column;
+}
 #file {
   text-shadow: 1px 1px 1px #000;
   letter-spacing: 2px;
   font-weight: bold;
-  color: #ffe570;
+  color:#ffa600;
+  font-size:15px;
 }
 .form-post__btn-submit,
 input[type="submit"],

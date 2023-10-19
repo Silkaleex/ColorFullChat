@@ -123,11 +123,11 @@ body {
   background: url("../img/fondo-inicio.jpg");
   background-size: cover;
   background-position: center;
-  padding: 1.15% 0% 3% 0%;
+  padding: 4.15% 0% 3% 0%;
   margin: -2% 0% 0% -6.1%;
   width: 148.99%;
   text-shadow: 1px 1px 1px #000;
-  min-height: 116.4%;
+  min-height: 105.6%;
 }
 
 .fondo-portada {

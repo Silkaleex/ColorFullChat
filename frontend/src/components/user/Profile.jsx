@@ -108,13 +108,14 @@ export const Profile = () => {
 
   return (
     <>
-      <div className="layout">
+    <div className="layout-barraLateral">
+      <div >
         {publications.length === 0 && !loading ? (
           <div className="no-publications-card">
             <p>No tienes publicaciones que mostrar.</p>
           </div>
         ) : (
-          <div className="fondo-perfil">
+          <div className="fondo-perfil4">
             <div className="layout">
               <div className="content__po">
                 {publications.map((publicacion) => (
@@ -183,6 +184,7 @@ export const Profile = () => {
         )}
       </div>
       <Sidebar />
+      </div>
     </>
   );
 };

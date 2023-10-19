@@ -75,7 +75,8 @@ export const Config = () => {
 
   return (
     <>
- <div className="fondo-perfil">
+ <div className="fondo-perfil5">
+  <div>
       <header className="content__header">
         <h1 className="content__title">Ajustes</h1>
       </header>
@@ -153,6 +154,7 @@ export const Config = () => {
           <br />
           <input type="submit" value="actualizar" className="btn btn-success" />
         </form>
+      </div>
       </div>
       </div>
     </>

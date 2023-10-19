@@ -43,7 +43,7 @@ export const Register = () => {
               {/* {<p className="mensaje-erroneo">{submitMessage}</p> && (
                 <p className="mensaje-enviado">{submitMessage}</p>
               )} */}
-                  {submitMessage && (
+              {submitMessage && (
                 <p
                   className={`mensaje-logeado ${
                     submitMessage === "Algo no funcionó bien, revisa tus datos"
@@ -88,9 +88,15 @@ export const Register = () => {
                 className="btn btn-success"
               />
             </form>
-            <div className="btn-login">
-              <Link className="btn-portada" to="/portada">Inicio</Link>
-              <Link className="btn-registro" to="/login">inica sesion</Link>
+            <div className="btn-botones">
+              <h6 className="titulo-btn">Volver a Inicio</h6>
+              <Link className="btn-portada" to="/">
+                Inicio
+              </Link>
+              <h6 className="titulo-btn">¿Tienes cuenta ya?</h6>
+              <Link className="btn-login" to="/login">
+                inica sesion
+              </Link>
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@ export const Routing = () => {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<PublicLayout />}>
-              <Route index  path="/portada"element={<Portada />} />
+              <Route index element={<Portada />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
             </Route>

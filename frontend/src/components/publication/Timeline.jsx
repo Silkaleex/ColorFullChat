@@ -62,7 +62,7 @@ export const Timeline = () => {
   };
 
   return (
-    <div className="fondo-perfil">
+    <div className="fondo-perfil3">
       <div className="container-img">
         <div className="caja-input-img">
           <form

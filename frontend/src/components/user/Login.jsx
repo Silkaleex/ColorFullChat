@@ -77,10 +77,16 @@ export const Login = () => {
                 className="login-boton"
               />
             </form>
-            
-            <div className="btn-login">
-              <Link className="btn-portada" to="/portada">Inicio</Link>
-              <Link className="btn-registro" to="/registro">Registrate</Link>
+
+            <div className="btn-botones1">
+              <h6 className="titulo-btn">Volver a Inicio</h6>
+              <Link className="btn-portada" to="/">
+                Inicio
+              </Link>
+              <h6 className="titulo-btn">¿No tienes Cuenta?</h6>
+              <Link className="btn-registro" to="/registro">
+                Registrate
+              </Link>
             </div>
           </div>
         </div>

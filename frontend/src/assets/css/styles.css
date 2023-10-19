@@ -123,7 +123,7 @@ body {
   background: url("../img/fondo-inicio.jpg");
   background-size: cover;
   background-position: center;
-  padding: 1.7% 0% 3% 0%;
+  padding: 1.15% 0% 3% 0%;
   margin: -2% 0% 0% -6.1%;
   width: 148.99%;
   text-shadow: 1px 1px 1px #000;
@@ -679,7 +679,7 @@ span {
   background-attachment: fixed;
   width: 142.78%;
   text-shadow: 1px 1px 1px #000;
-  min-height: 119%;
+  min-height: 124.5%;
 }
 /*ESTILOS BARRA LATERAL*/
 

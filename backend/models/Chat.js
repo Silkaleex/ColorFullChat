@@ -4,15 +4,15 @@ const ChatSchema = Schema({
   participants: [
     {
       type: Schema.Types.ObjectId,
-      ref: "User", // Referencia al modelo User
-      required: true
+      ref: "User",
+      required: true,
     }
   ],
   messages: [
     {
       sender: {
         type: Schema.Types.ObjectId,
-        ref: "User" // Referencia al modelo User
+        ref: "User" 
       },
       text: {
         type: String,
@@ -25,5 +25,6 @@ const ChatSchema = Schema({
     }
   ]
 });
+
 
 module.exports = model("Chat", ChatSchema, "chats");

@@ -7,13 +7,10 @@ export const Register = () => {
   const [submitMessage, setSubmitMessage] = useState(null);
 
   const saveUser = async (e) => {
-    // Prevenimos la actualización de la pantalla
     e.preventDefault();
 
-    // recoger los datos del formulario
     let newUser = form;
 
-    // guardar datos en el backend
     const request = await fetch(`http://localhost:5000/api/register`, {
       method: "POST",
       body: JSON.stringify(newUser),
@@ -26,7 +23,11 @@ export const Register = () => {
     } else {
       setSubmitMessage("Error al enviar el formulario");
     }
-    console.log(data);
+
+    // Redirige al usuario a la página de inicio después de 2 segundos
+    setTimeout(() => {
+      window.location.href = "/"; // Cambia la URL según la ubicación de tu página de inicio
+    }, 2000);
   };
 
   return (
@@ -35,18 +36,15 @@ export const Register = () => {
         <div className="container__formulario ">
           <header className="content__header">
             <h1 className="content__title">
-              Estas a un paso de ser uno mas,¿A que esperas?, Registrate
+              Estás a un paso de ser uno más, ¿A qué esperas? Regístrate
             </h1>
           </header>
           <div className="content__posts">
             <div>
-              {/* {<p className="mensaje-erroneo">{submitMessage}</p> && (
-                <p className="mensaje-enviado">{submitMessage}</p>
-              )} */}
               {submitMessage && (
                 <p
                   className={`mensaje-logeado ${
-                    submitMessage === "Algo no funcionó bien, revisa tus datos"
+                    submitMessage === "Error al enviar el formulario"
                       ? "mensaje-error"
                       : "mensaje-enviado"
                   }`}

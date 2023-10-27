@@ -66,8 +66,6 @@ export const Sidebar = () => {
     if (data.success === true) {
       setStored("stored");
 
-      // Subir imagen
-
       if (data.status === "success" && fileInput.files[0]) {
         const uploadFormData = new FormData();
         uploadFormData.append("file0", fileInput.files[0]);
@@ -89,10 +87,15 @@ export const Sidebar = () => {
         }
         console.log(uploadRequest);
       }
-      // Resetea el formulario
+
       if (formRef.current) {
         formRef.current.reset();
       }
+
+      // Set a timeout to refresh the page after 3 seconds
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       setStored("error");
     }
@@ -203,14 +206,14 @@ export const Sidebar = () => {
                     type="file"
                     name="file0"
                     id="file"
-                    className="form-post__image"
+                    className="form-post__image "
                   />
                 </div>
 
                 <input
                   type="submit"
                   value="Enviar"
-                  className="form-post__btn-submit"
+                  className="form-post__btn-submit load-more-button2"
                 />
               </form>
             </div>

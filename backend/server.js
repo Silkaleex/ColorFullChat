@@ -3,14 +3,11 @@ const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-const socketIo = require("socket.io");
 
 mongoose.set('strictQuery', false);
 
 require("dotenv").config();
 const app = express();
-const server = http.createServer(app); // Crea el servidor HTTP
-const io = socketIo(server); // Crea una instancia de Socket.io y la asocia al servidor HTTP
 
 // Configuración de multer
 const storage = multer.diskStorage({
@@ -48,20 +45,13 @@ const userRouter = require("./routes/UserRouter");
 const eventosRouter = require("./routes/EventosRouter");
 const followRouter = require("./routes/FollowRouter");
 const publicationRouter = require("./routes/PublicationRouter");
-
+const ChatRouter = require("./routes/ChatRouter");
 app.use("/api", userRouter);
 app.use("/api", eventosRouter);
 app.use("/api", followRouter);
 app.use("/api", publicationRouter);
+app.use("/api", ChatRouter);
 
-// Configura Socket.io para gestionar conexiones
-io.on("connection", (socket) => {
-  try {
-    console.log("Usuario conectado");
-  } catch {
-    console.log("Error de conexion");
-  }
-});
 
 //cargando rutas
 const URL = process.env.mongo_db;

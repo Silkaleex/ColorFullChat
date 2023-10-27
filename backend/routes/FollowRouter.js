@@ -3,7 +3,7 @@ const followRouter = express.Router();
 const auth = require("../middelware/auth");
 const Follow = require("../models/Follow");
 const user = require("../models/User");
-
+const publicacion = require("../models/Publication")
 // Ruta para guardar un seguimiento
 followRouter.post("/follow", auth, async (req, res) => {
   try {
@@ -345,6 +345,45 @@ followRouter.get("/followers/:id?/:page?", auth, async (req, res) => {
     return res.status(500).json({
       status: "error",
       message: "Ha ocurrido un error al obtener los seguidores.",
+    });
+  }
+});
+
+//publicaciones de los usuarios que sigues
+followRouter.get("/timeline", auth, async (req, res) => {
+  try {
+    // Obtén la lista de usuarios a los que sigue el usuario autenticado
+    const userId = req.user.id;
+    const following = await Follow.find({ user: userId });
+    const usersIFollow = following.map((follow) => follow.followed);
+
+    // Obtén las publicaciones de los usuarios que sigues
+    const publications = await publicacion.find({ user: { $in: usersIFollow } })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    // Mapea las publicaciones a incluir la URL de las imágenes
+    const publicationsWithImages = publications.map((publication) => {
+      const imageFileName = publication.file;
+      const imageUrl = `/uploads/publications/${imageFileName}`;
+      return {
+        _id: publication._id,
+        user: publication.user,
+        text: publication.text,
+        file: imageUrl,
+        createdAt: publication.createdAt,
+      };
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Línea de tiempo con imágenes de los usuarios que sigues",
+      timeline: publicationsWithImages,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
     });
   }
 });

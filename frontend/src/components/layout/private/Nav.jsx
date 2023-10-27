@@ -32,10 +32,10 @@ export const Nav = () => {
           </li>
 
           <li className="menu-list__item">
-            <Link to="" className="menu-list__link">
+            <NavLink to="/social/bandeja" className="menu-list__link">
               <i className="fa-regular fa-envelope"></i>
               <span className="menu-list__title">Mensajes</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
 

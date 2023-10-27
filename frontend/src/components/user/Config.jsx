@@ -34,13 +34,13 @@ export const Config = () => {
       setAuth(data.user);
       setSaved("Perfil cambiado exitosamente");
 
-      // Mostrar el mensaje y recargar la página después de 2 segundos
+    // Mostrar el mensaje y recargar la página después de 2 segundos
       setTimeout(() => {
         window.location.reload();
       }, 2000);
     } else {
       setSaved("Error, no se modificó ningún dato del perfil");
-    }
+     }
     // Subida de imágenes
     const fileInput = document.querySelector("#file");
     if (data.status === "success" && fileInput.files[0]) {
@@ -92,7 +92,7 @@ export const Config = () => {
           )}
         </div>
 
-        <form className="config-form" onSubmit={updateUser}>
+        <form onSubmit={updateUser}>
           <div className="form-group">
             <label htmlFor="name">Nombre</label>
             <input type="text" name="name" defaultValue={auth.name} />

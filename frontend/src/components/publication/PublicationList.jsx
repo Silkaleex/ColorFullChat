@@ -2,32 +2,6 @@ import React from "react";
 import avatar from "../../assets/img/user.png";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-function formatDate(dateString) {
-  const currentDate = new Date();
-  const publicationDate = new Date(dateString);
-
-  const timeDifference = currentDate - publicationDate;
-
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const months = Math.floor(days / 30);
-
-  if (months > 0) {
-    return `Publicado hace ${months} ${months === 1 ? "mes" : "meses"}`;
-  } else if (days > 0) {
-    return `Publicado hace ${days} ${days === 1 ? "día" : "días"}`;
-  } else if (hours > 0) {
-    return `Publicado hace ${hours} ${hours === 1 ? "hora" : "horas"}`;
-  } else if (minutes > 0) {
-    return `Publicado hace ${minutes} ${minutes === 1 ? "minuto" : "minutos"}`;
-  } else {
-    return `Publicado hace ${seconds} ${
-      seconds === 1 ? "segundo" : "segundos"
-    }`;
-  }
-}
 
 export const PublicationList = ({
   publications,
@@ -76,10 +50,6 @@ export const PublicationList = ({
                     <Link className="user-info__name">
                       {publicacion.user.name}
                     </Link>
-                    <span className="user-info__divider"> | </span>
-                    <span className="user-info__create-date">
-                      {formatDate(auth.createdAt)}
-                    </span>
                   </div>
                   <h4 className="post__content">{publicacion.text}</h4>
                 </div>
@@ -87,7 +57,7 @@ export const PublicationList = ({
             </article>
           ))}
         </div>
-        <div className="content__container-btn">
+        <div>
           {!loading && publications.length > 0 && showLoadMoreButton ? (
             <button
               className="content__btn-more-post"

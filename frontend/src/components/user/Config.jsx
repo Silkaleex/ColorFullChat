@@ -1,162 +1,55 @@
-import React, { useState } from "react";
-import useAuth from "../../hooks/useAuth";
-import avatar from "../../assets/img/user.png";
-import { SerializeForm } from "../../helpers/SerializeForm";
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 export const Config = () => {
-  const { auth, setAuth } = useAuth();
-  
-  const [saved, setSaved] = useState("not_saved");
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-
-  const [imagePreview, setImagePreview] = useState(null); 
-  const token = localStorage.getItem("token");
-
-  const updateUser = async (e) => {
-    e.preventDefault();
-    let newDataUser = SerializeForm(e.target);
-    delete newDataUser.file0;
-
-    const request = await fetch(`http://localhost:5000/api/update`, {
-      method: "PUT",
-      body: JSON.stringify(newDataUser),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-    const data = await request.json();
-
-    setIsButtonClicked(true);
-
-    if (data.status === "success") {
-      delete data.user.password;
-      setAuth(data.user);
-      setSaved("Perfil cambiado exitosamente");
-
-    // Mostrar el mensaje y recargar la página después de 2 segundos
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    } else {
-      setSaved("Error, no se modificó ningún dato del perfil");
-     }
-    // Subida de imágenes
-    const fileInput = document.querySelector("#file");
-    if (data.status === "success" && fileInput.files[0]) {
-      // Recoge la imagen y la sube al servidor
-      const formData = new FormData();
-      formData.append("file0", fileInput.files[0]);
-      // Peticion para enviar la imagen al servidor
-      const uploadRequest = await fetch(`http://localhost:5000/api/upload`, {
-        method: "POST",
-        body: formData,
-        headers: { Authorization: token },
-      });
-      const uploadData = await uploadRequest.json();
-
-      if (uploadData.status === "success" && uploadData.user) {
-        delete uploadData.user.password;
-        setAuth(uploadData.user);
-        setSaved("Perfil cambiado exitosamente");
-      }
-    }
-  };
-
-  // Función para actualizar la vista previa de la imagen
-  const handleImagePreview = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-    } else {
-      setImagePreview(null);
-    }
-  };
-
   return (
     <>
- <div className="fondo-perfil5">
-  <div>
-      <header className="content__header">
-        <h1 className="content__title">Ajustes</h1>
-      </header>
+      <section className="filtrado">
+        <h2 className="txt-filtrado">Buscar:</h2>
+        <input
+          type="search"
+          name="buscar"
+          className="buscar-filtrado"
+          minLength={10}
+          maxLength={40}
+        />
+        <FaMagnifyingGlass className="icn-filtrado" />
+      </section>
 
-      <div className="content__posts1">
-        <div className="container-msm">
-          {isButtonClicked && (
-            <p className={`enviado ${saved.includes("error") ? "error" : ""}`}>
-              {saved.includes("error")
-                ? "Error, no se modificó ningún dato del perfil"
-                : saved}
-            </p>
-          )}
-        </div>
+      <section className="mod-perfil">
+        <h3 className="titulo-perfil">Modificación del Perfil</h3>
+        <p className="texto-perfil">
+          En esta sección puedes modificar tu nombre, apellidos,correo
+          electronico,imagen de avatar, nick{" "}
+        </p>
+        <Link className="enlace-perfil" to={"/social/mod"}>
+          Modificar Perfil
+        </Link>
+      </section>
 
-        <form onSubmit={updateUser}>
-          <div className="form-group">
-            <label htmlFor="name">Nombre</label>
-            <input type="text" name="name" defaultValue={auth.name} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="surname">Apellidos</label>
-            <input type="text" name="surname" defaultValue={auth.surname} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="nick">Nick</label>
-            <input type="text" name="nick" defaultValue={auth.nick} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="bio">Biografia</label>
-            <textarea name="bio" defaultValue={auth.bio} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Correo electronico</label>
-            <input type="email" name="email" defaultValue={auth.email} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input type="password" name="password" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="file0">Avatar</label>
-            <div className="avatar">
-              {/* Mostrar la vista previa de la imagen */}
-              <div className="general-info__container-avatar">
-                {imagePreview ? (
-                  <img
-                    src={imagePreview}
-                    className="container-avatar__img"
-                    alt="Vista previa de la imagen"
-                  />
-                ) : auth.image && auth.image !== "default.png" ? (
-                  <img
-                    src={`http://localhost:5000/api/upload/${auth.image}`}
-                    className="container-avatar__img"
-                    alt="Foto de perfil"
-                  />
-                ) : (
-                  <img
-                    src={avatar}
-                    className="container-avatar__img"
-                    alt="Foto de perfil"
-                  />
-                )}
-              </div>
-              <br />
-            </div>
-            <input
-              type="file"
-              name="file0"
-              id="file"
-              onChange={handleImagePreview} // Actualizar vista previa de la imagen
-            />
-          </div>
-          <br />
-          <input type="submit" value="actualizar" className="btn btn-success" />
-        </form>
-      </div>
-      </div>
-      </div>
+      <section className="mod-perfil">
+        <h3 className="titulo-perfil">Usuarios Bloqueados</h3>
+        <p className="texto-perfil">Usuarios que has bloqueado</p>
+        <Link className="enlace-perfil" to={""}>
+          Ver usuarios Bloqueados
+        </Link>
+      </section>
+
+      <section className="mod-perfil">
+        <h3 className="titulo-perfil">Privacidad de Cuenta</h3>
+        <p className="texto-perfil">
+          Puedes ver si tu cuenta es publica o privada
+        </p>
+        <Link className="enlace-perfil" to={""}>
+          Ver estado actual de la cuenta
+        </Link>
+      </section>
+
+      <section className="elm-usuario">
+        <Link className="eliminacion" to={""}>
+          Eliminar mi cuenta de usuario
+        </Link>
+      </section>
     </>
   );
 };

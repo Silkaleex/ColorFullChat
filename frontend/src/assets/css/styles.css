@@ -1215,15 +1215,19 @@ input[type="submit"]:hover {
   font-weight:800;
   font-size:15px;
   color:#9d0208;
+  background-color: #263946;
   letter-spacing:1px;
   text-shadow:1px 1px 1px #370617;
   transition:200ms all;
+  cursor:pointer;
 }
 .eliminacion:hover{
   font-weight:800;
   font-size:15px;
   color:#c1121f;
+  background-color: #263946;
   letter-spacing:1px;
   text-shadow:1px 1px 1px  #370617;
   transition:200ms all;
+  cursor:pointer;
 }

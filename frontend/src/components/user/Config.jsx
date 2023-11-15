@@ -1,7 +1,33 @@
-import React from "react";
+import { useState } from "react"; 
 import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import axios from "axios";
 export const Config = () => {
+  const [User, setUser] = useState({});
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  const deleteAccount = async (e) => {
+    let opcion = window.confirm("¿Estas Seguro de Eliminar tu Cuenta?");
+    if (opcion == true) {
+      try {
+        const response = await axios.delete("http://localhost:5000/api/user", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        localStorage.removeItem("role");
+        localStorage.removeItem("token");
+        localStorage.removeItem("name");
+        console.log(response);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
+      } catch (error) {
+        console.log(error.response);
+      }
+    }
+  };
   return (
     <>
       <section className="filtrado">
@@ -46,9 +72,9 @@ export const Config = () => {
       </section>
 
       <section className="elm-usuario">
-        <Link className="eliminacion" to={""}>
+        <button className="eliminacion" onClick={deleteAccount}>
           Eliminar mi cuenta de usuario
-        </Link>
+        </button>
       </section>
     </>
   );

@@ -253,10 +253,20 @@ UserRouter.put("/users_desban/:id", auth, authAdmin, async (req, res) => {
 // Eliminar la cuenta como usuario
 UserRouter.delete("/user", auth, async (req, res) => {
   try {
-    await user.findByIdAndDelete(req.user.id);
+    const userId = req.user.id;
+
+    // Busca y elimina todas las publicaciones del usuario
+    await publicacion.deleteMany({ user: userId });
+
+    // Busca y elimina todas las referencias de seguimiento relacionadas con el usuario
+    await Follow.deleteMany({ $or: [{ user: userId }, { followed: userId }] });
+
+    // Elimina al usuario de la base de datos
+    await user.findByIdAndDelete(userId);
+
     return res.status(200).send({
       success: true,
-      message: "Usuario eliminado",
+      message: "Usuario y datos asociados eliminados correctamente",
     });
   } catch (error) {
     return res.status(500).send({
@@ -265,6 +275,7 @@ UserRouter.delete("/user", auth, async (req, res) => {
     });
   }
 });
+
 // Eliminar a un usuario como administrador
 UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
   try {

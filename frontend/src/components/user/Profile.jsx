@@ -104,13 +104,13 @@ export const Profile = () => {
                             {auth.image && auth.image !== "default.png" ? (
                               <img
                                 src={`http://localhost:5000/api/upload/${auth.image}`}
-                                className="list-end__img"
+                                className="list-end__img2"
                                 alt="Foto de perfil"
                               />
                             ) : (
                               <img
                                 src={avatar}
-                                className="list-end__img"
+                                className="list-end__img2"
                                 alt="Foto de perfil"
                               />
                             )}

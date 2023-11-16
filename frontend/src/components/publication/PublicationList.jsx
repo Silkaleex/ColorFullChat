@@ -24,7 +24,7 @@ export const PublicationList = ({
           {publications.map((publicacion) => (
             <article className="posts__post" key={publicacion._id}>
               <div className="post__container">
-                <div className="post__image-user">
+                <div className="post__image-user2">
                   <Link
                     to={`/perfil/${publicacion.user._id}`}
                     className="post__image-link"

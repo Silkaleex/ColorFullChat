@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import axios from "axios";
 export const Config = () => {
-  const [User, setUser] = useState({});
   const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
-
   const deleteAccount = async (e) => {
     let opcion = window.confirm("¿Estas Seguro de Eliminar tu Cuenta?");
     if (opcion == true) {
@@ -30,18 +27,6 @@ export const Config = () => {
   };
   return (
     <>
-      <section className="filtrado">
-        <h2 className="txt-filtrado">Buscar:</h2>
-        <input
-          type="search"
-          name="buscar"
-          className="buscar-filtrado"
-          minLength={10}
-          maxLength={40}
-        />
-        <FaMagnifyingGlass className="icn-filtrado" />
-      </section>
-
       <section className="mod-perfil">
         <h3 className="titulo-perfil">Modificación del Perfil</h3>
         <p className="texto-perfil">

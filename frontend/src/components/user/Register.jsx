@@ -26,7 +26,7 @@ export const Register = () => {
 
     // Redirige al usuario a la página de inicio después de 2 segundos
     setTimeout(() => {
-      window.location.href = "/"; // Cambia la URL según la ubicación de tu página de inicio
+      window.location.href = "/login"; 
     }, 2000);
   };
 

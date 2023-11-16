@@ -258,13 +258,17 @@ span {
 }
 .btn-botones1 {
   display: flex;
-  flex-direction: column;
-  padding: 2% 34% 2% 40%;
+  flex-direction: row;
+  padding: 2.1rem 42rem;
   margin: 0px auto;
   font-size: 25px;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   background-color: rgba(184, 149, 44, 0.64);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
 }
 .titulo-btn {
   color: rgb(255, 255, 255);
@@ -493,8 +497,6 @@ span {
 
 .content__post {
   width: 100%;
-  padding: 6.9% 0% 0% 0%;
-  min-height: 100px;
 }
 
 .content__pos {
@@ -529,7 +531,7 @@ span {
   font-size: 20px;
   display: block;
   padding: 4px 2px;
-  margin: 2% 30%;
+  margin: 7.6rem 30% -11rem 31%;
   width: 40%;
   text-align: center;
   background-color: #11296b;
@@ -540,7 +542,7 @@ span {
   font-size: 20px;
   display: block;
   padding: 4px 2px;
-  margin: 2% 30%;
+  margin: 6.6rem 30% -10rem 32%;
   width: 40%;
   text-align: center;
   background-color: #e71d36;
@@ -579,7 +581,20 @@ span {
   margin-right: 1.5rem;
   overflow: hidden;
 }
-
+.post__image-user {
+  width: 8.5rem;
+  height: 7.5rem;
+  border-radius: 100rem;
+  margin-right: 5.5rem;
+  overflow: hidden;
+}
+.post__image-user2 {
+  width: 8.5rem;
+  height: 7.5rem;
+  border-radius: 100rem;
+  margin-right: 5.5rem;
+  overflow: hidden;
+}
 .post__user-image {
   width: 100%;
   height: 100%;
@@ -663,13 +678,13 @@ span {
   font-size: 1.4rem;
 }
 .container__formulario {
-  background-image: url("https://images.pexels.com/photos/5710947/pexels-photo-5710947.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background-image: url(https://images.pexels.com/photos/5710947/pexels-photo-5710947.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
   background-size: cover;
   padding: 0% 0% 0% 0%;
   margin: 0px auto;
   width: 142.89%;
   text-shadow: 1px 1px 1px #000;
-  min-height: 115%;
+  min-height: 105%;
 }
 .container__login {
   background-image: url("https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
@@ -795,7 +810,7 @@ span {
   text-shadow: 1px 1px 1px #000;
 }
 .login-form {
-  margin: 0% 40%;
+  margin: 12.4rem 43rem 1rem 46rem;
   width: 60%;
   color: #ff9505;
   text-shadow: 1px 1px 1px #000;
@@ -1197,6 +1212,8 @@ input[type="submit"]:hover {
   color:#9d0208;
   letter-spacing:1px;
   text-shadow:1px 1px 1px #dc2f02;
+  background-color: transparent;
+  border:none;
 }
 .enlace-perfil:hover{
   font-weight:bold;
@@ -1204,30 +1221,37 @@ input[type="submit"]:hover {
   color:#dc2f02;
   text-shadow:0px 0px 0px #000, 0px 1px 1px #000, 3px 3px 3px #000;
   letter-spacing:1px;
+  background-color: transparent;
+  border:none;
 }
 .elm-usuario{
   margin:0px auto;
   text-align:left;
   width:63%;
   padding:2% 0%;
+  background-color: transparent;
 }
 .eliminacion{
   font-weight:800;
   font-size:15px;
-  color:#9d0208;
-  background-color: #263946;
+  color:#dc2f02;
+  background-color: transparent;
   letter-spacing:1px;
   text-shadow:1px 1px 1px #370617;
   transition:200ms all;
   cursor:pointer;
+  padding:1px 5px;
+  border:none;
 }
 .eliminacion:hover{
   font-weight:800;
   font-size:15px;
   color:#c1121f;
-  background-color: #263946;
+  background-color: transparent;
   letter-spacing:1px;
   text-shadow:1px 1px 1px  #370617;
   transition:200ms all;
   cursor:pointer;
+  padding:1px 5px;
+  border:none;
 }

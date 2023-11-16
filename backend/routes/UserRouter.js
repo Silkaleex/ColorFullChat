@@ -13,7 +13,7 @@ const Follow = require("../models/Follow");
 const publicacion = require("../models/Publication");
 
 const createToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "7d" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "6h" });
 };
 
 const storage = multer.diskStorage({
@@ -375,61 +375,6 @@ UserRouter.get("/user/:id", auth, authAdmin, async (req, res) => {
   }
 });
 
-// // Busqueda de usuarios
-// UserRouter.post("/search", auth, async (req, res) => {
-//   try {
-//     const userId = req.user.id; // Obtén el ID del usuario autenticado desde la solicitud
-
-//     // Busca el usuario en la base de datos por su ID
-//     const User = await user.findById(userId);
-
-//     if (!User) {
-//       return res.status(404).send({
-//         success: false,
-//         message: "Usuario no encontrado",
-//       });
-//     }
-
-//     return res.status(200).send({
-//       success: true,
-//       message: "Usuario encontrado",
-//       userId,
-//     });
-//   } catch (error) {
-//     return res.status(500).send({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// });
-
-// // Agrega una nueva ruta GET para mostrar los resultados de búsqueda
-// UserRouter.get("/search/:name", auth, async (req, res) => {
-//   try {
-//     const userName = req.params.name; // Obtén el nombre del usuario desde los parámetros de la URL
-
-//     // Busca el usuario en la base de datos por su nombre
-//     const User = await user.findOne({ name: userName });
-
-//     if (!User) {
-//       return res.status(404).send({
-//         success: false,
-//         message: "Usuario no encontrado",
-//       });
-//     }
-
-//     return res.status(200).send({
-//       success: true,
-//       message: `Usuario encontrado: ${userName}`,
-//       user,
-//     });
-//   } catch (error) {
-//     return res.status(500).send({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// });
 // Lista de usuarios
 UserRouter.get("/list/:page?", auth, async (req, res) => {
   try {
@@ -638,6 +583,42 @@ UserRouter.get("/profile/:id", auth, async (req, res) => {
     });
   }
 });
+UserRouter.get("/profile/:id", auth, async (req, res) => {
+  const userId = req.params.id;
+  const requesterId = req.user.id;
+
+  try {
+    const userProfile = await user.findById(userId).select("-password");
+
+    if (!userProfile) {
+      return res.status(404).json({
+        success: false,
+        message: "Usuario no encontrado",
+      });
+    }
+
+    // Verificar la privacidad del perfil
+    if (userProfile.private && userId !== requesterId) {
+      return res.status(403).json({
+        success: false,
+        message: "Este perfil es privado",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Datos del perfil obtenidos correctamente",
+      userProfile,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener los datos del usuario",
+      error: error.message,
+    });
+  }
+});
+
 
 
 module.exports = UserRouter;

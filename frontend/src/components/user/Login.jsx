@@ -38,9 +38,10 @@ export const Login = () => {
 
       // Redirección después de 2 segundos en caso de error
       setTimeout(() => {
-        setSubmitMessage(null); // Limpia el mensaje de error
+        setSubmitMessage(null);
+        window.location.href = "/login"; // Limpia el mensaje de error
       }, 2000);
-    }
+     }
   };
 
   return (

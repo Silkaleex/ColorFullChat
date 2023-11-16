@@ -51,7 +51,7 @@ export const Config = () => {
         <p className="texto-perfil">
           Puedes ver si tu cuenta es publica o privada
         </p>
-        <Link className="enlace-perfil" to={""}>
+        <Link className="enlace-perfil" to={"/social/privacidad"}>
           Ver estado actual de la cuenta
         </Link>
       </section>

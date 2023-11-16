@@ -314,6 +314,10 @@ publicationRouter.get("/feed/:page?", auth, async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
+      .populate({
+        path: 'user',
+        select: 'name estadoCuenta', // Solo selecciona el nombre y el estado de la cuenta del usuario
+      })
       .exec();
 
     if (!publications || publications.length === 0) {
@@ -323,15 +327,25 @@ publicationRouter.get("/feed/:page?", auth, async (req, res) => {
       });
     }
 
+    // Filtra las publicaciones basándote en la privacidad del perfil
+    const userId = req.user.id;
+    const filteredPublications = publications.filter((publication) => {
+      // Si el perfil es privado, solo mostrar publicaciones del usuario autenticado
+      if (publication.user && publication.user.estadoCuenta === "privado" && publication.user._id.toString() !== userId) {
+        return false;
+      }
+      return true;
+    });
+
     // Recopila los IDs de los usuarios que hicieron las publicaciones
-    const userIds = publications.map((publication) => publication.user);
+    const userIds = filteredPublications.map((publication) => publication.user._id);
 
     // Consulta la información de los usuarios que hicieron las publicaciones
     const users = await user.find({ _id: { $in: userIds } }, 'name image');
 
     // Mapea la información de los usuarios a cada publicación
-    const publicacionesConUsuarios = publications.map((publication) => {
-      const user = users.find((u) => u._id.equals(publication.user));
+    const publicacionesConUsuarios = filteredPublications.map((publication) => {
+      const user = users.find((u) => u._id.equals(publication.user._id));
       return {
         _id: publication._id,
         user: user,
@@ -354,6 +368,7 @@ publicationRouter.get("/feed/:page?", auth, async (req, res) => {
     });
   }
 });
+
 
 // Listado de publicaciones por ID de usuario y paginación opcional
 publicationRouter.get("/list/:userId/:page?", auth, async (req, res) => {

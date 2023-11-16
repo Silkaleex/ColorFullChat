@@ -536,53 +536,7 @@ UserRouter.get("/counters/:id", auth, async (req, res) => {
 });
 
 // perfil de usuario
-UserRouter.get("/profile/:id", auth, async (req, res) => {
-  try {
-    const userId = req.params.id;
-
-    // Consulta para obtener los datos del usuario por su ID
-    const User = await user.findById(userId).select("-password");
-
-    if (!User) {
-      return res.status(404).json({
-        success: false,
-        message: "Usuario no encontrado",
-      });
-    }
-
-    // Consulta para obtener el número de seguidores y seguidos del usuario
-    const followingCount = await Follow.countDocuments({ user: userId });
-    const followersCount = await Follow.countDocuments({ followed: userId });
-
-    // Consulta para obtener el número de publicaciones del usuario
-    const publicationCount = await publicacion.countDocuments({
-      user: req.user.id,
-    });
-
-    // Personaliza los datos que deseas enviar al cliente
-    const userData = {
-      name: User.name,
-      email: User.email,
-      bio: User.bio,
-      nick: User.nick,
-      following: followingCount,
-      followers: followersCount,
-      publications: publicationCount,
-    };
-
-    return res.status(200).json({
-      success: true,
-      message: "Datos del usuario obtenidos correctamente",
-      user: userData,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error al obtener los datos del usuario",
-      error: error.message,
-    });
-  }
-});
+// Ruta para obtener el perfil de un usuario
 UserRouter.get("/profile/:id", auth, async (req, res) => {
   const userId = req.params.id;
   const requesterId = req.user.id;
@@ -598,7 +552,7 @@ UserRouter.get("/profile/:id", auth, async (req, res) => {
     }
 
     // Verificar la privacidad del perfil
-    if (userProfile.private && userId !== requesterId) {
+    if (userProfile.estadoCuenta === "privado" && userId !== requesterId) {
       return res.status(403).json({
         success: false,
         message: "Este perfil es privado",
@@ -619,6 +573,46 @@ UserRouter.get("/profile/:id", auth, async (req, res) => {
   }
 });
 
+// Ruta para cambiar el estado de la cuenta (público o privado)
+UserRouter.put("/privacidad", auth, async (req, res) => {
+  try {
+    const { estadoCuenta } = req.body;
+    const userId = req.user.id;
 
+    // Verifica si el estado de la cuenta proporcionado es válido
+    if (!["publico", "privado"].includes(estadoCuenta)) {
+      return res.status(400).json({
+        success: false,
+        message: "El estado de cuenta proporcionado no es válido",
+      });
+    }
+
+    // Supongamos que tienes un modelo de usuario llamado User
+    const userToUpdate = await user.findByIdAndUpdate(
+      userId,
+      { estadoCuenta },
+      { new: true }
+    );
+
+    if (!userToUpdate) {
+      return res.status(400).json({
+        success: false,
+        message: "Usuario no encontrado",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Estado de cuenta actualizado exitosamente",
+      estadoCuenta: userToUpdate.estadoCuenta,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error del servidor al actualizar el estado de cuenta",
+    });
+  }
+});
 
 module.exports = UserRouter;

@@ -6,6 +6,7 @@ const user = require("../models/User");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const Follow = require("../models/Follow")
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads/publications");
@@ -304,16 +305,12 @@ publicationRouter.get("/uploads/:file", auth, (req, res) => {
 // Feed de publicaciones
 publicationRouter.get("/feed/:page?", auth, async (req, res) => {
   try {
-    const page = req.params.page || 1;
-    const limit = 5; // Número de publicaciones por página
-    const skip = (page - 1) * limit;
+    const userId = req.user.id;
 
     // Consulta todas las publicaciones con información del usuario que las hizo
     const publications = await publicacion
       .find()
       .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
       .populate({
         path: 'user',
         select: 'name estadoCuenta', // Solo selecciona el nombre y el estado de la cuenta del usuario
@@ -327,15 +324,32 @@ publicationRouter.get("/feed/:page?", auth, async (req, res) => {
       });
     }
 
-    // Filtra las publicaciones basándote en la privacidad del perfil
-    const userId = req.user.id;
+    // Filtra las publicaciones basándote en la privacidad del perfil y la relación de seguimiento
+    const following = await Follow.find({ user: userId });
+    const followers = await Follow.find({ followed: userId });
+
     const filteredPublications = publications.filter((publication) => {
-      // Si el perfil es privado, solo mostrar publicaciones del usuario autenticado
-      if (publication.user && publication.user.estadoCuenta === "privado" && publication.user._id.toString() !== userId) {
-        return false;
+      // Si el perfil es privado y no es el propio usuario
+      if (
+        publication.user &&
+        publication.user.estadoCuenta === "privado" &&
+        publication.user._id.toString() !== userId
+      ) {
+        // Y si no sigues a este usuario
+        if (!following.some((follow) => follow.followed.equals(publication.user._id))) {
+          return false;
+        }
+
+        // Y si este usuario no te sigue
+        if (!followers.some((follower) => follower.user.equals(publication.user._id))) {
+          return false;
+        }
       }
+
       return true;
     });
+
+
 
     // Recopila los IDs de los usuarios que hicieron las publicaciones
     const userIds = filteredPublications.map((publication) => publication.user._id);

@@ -32,6 +32,29 @@ const UserSchema = Schema({
     default: "publico", 
     enum: ["publico", "privado"], 
   },
+    // Lista de amigos del usuario
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+  
+    // Lista de solicitudes de amistad pendientes enviadas por el usuario
+    sentFriendRequests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "FriendRequest",
+      },
+    ],
+  
+    // Lista de solicitudes de amistad pendientes recibidas por el usuario
+    receivedFriendRequests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "FriendRequest",
+      },
+    ],
   created_at: {
     type: Date,
     default: Date.now,

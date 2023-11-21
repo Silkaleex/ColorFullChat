@@ -586,8 +586,7 @@ UserRouter.put("/privacidad", auth, async (req, res) => {
         message: "El estado de cuenta proporcionado no es válido",
       });
     }
-
-    // Supongamos que tienes un modelo de usuario llamado User
+    
     const userToUpdate = await user.findByIdAndUpdate(
       userId,
       { estadoCuenta },
@@ -614,5 +613,6 @@ UserRouter.put("/privacidad", auth, async (req, res) => {
     });
   }
 });
+
 
 module.exports = UserRouter;

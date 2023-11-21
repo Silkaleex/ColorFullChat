@@ -51,7 +51,7 @@ export const PublicationList = ({
                       {publicacion.user.name}
                     </Link>
                   </div>
-                  <h4 className="post__content">{publicacion.text}</h4>
+                  <h4 className="post__content2">{publicacion.text}</h4>
                 </div>
               </div>
             </article>

@@ -65,7 +65,7 @@ const Privacidad = ({  }) => {
       <h3 className="titulo-perfil">Privacidad de Cuenta</h3>
 
       {message && (
-        <p className={message.type === "success" ? "success" : "error"}>
+        <p className={message.type === "success" ? "enviado" : "error"}>
           {message.text}
         </p>
       )}

@@ -133,7 +133,7 @@ export const People = () => {
         <header className="content__header">
           <h1 className="content__title">Usuarios</h1>
         </header>
-
+  
         <div className="content__pos">
           {loading ? (
             <p className="loading__users">
@@ -162,7 +162,7 @@ export const People = () => {
                       )}
                     </Link>
                   </div>
-
+  
                   <div className="post__body">
                     <div className="post__user-info">
                       <Link to="#" className="user-info__name">
@@ -185,7 +185,7 @@ export const People = () => {
                           : "Seguir"}
                       </button>
                     )}
-
+  
                     {following.includes(user._id) && (
                       <button
                         className="post__button post__button--red"
@@ -199,15 +199,15 @@ export const People = () => {
               </article>
             ))
           )}
+          {!loading && more && (
+            <div className="content__container-btn">
+              <button className="content__btn-more-post" onClick={nextPage}>
+                Ver mas Personas
+              </button>
+            </div>
+          )}
         </div>
-        {!loading && more && (
-          <div className="content__container-btn">
-            <button className="content__btn-more-post" onClick={nextPage}>
-              Ver mas Personas
-            </button>
-          </div>
-        )}
       </div>
     </>
   );
-};
+          }  

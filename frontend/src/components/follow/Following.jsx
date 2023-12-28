@@ -12,6 +12,7 @@ export const Following = () => {
   const [following, setFollowing] = useState([]);
   const token = localStorage.getItem("token");
   const params = useParams();
+
   useEffect(() => {
     getUsers(1);
   }, []);
@@ -20,6 +21,7 @@ export const Following = () => {
     setLoading(true);
 
     try {
+      //sacar el user id de la url
       const userId = params.userId;
       const request = await fetch(
         `http://localhost:5000/api/following/${userId}/${nextPage}`,

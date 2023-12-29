@@ -126,7 +126,7 @@ export const Followers = () => {
         <h1 className="content__title">Usuarios que te sigen</h1>
       </header>
 
-      <div className="content__posts">
+      <div className="content__posts3">
         {loading ? (
           <p className="loading__users">
             Cargando usuarios
@@ -135,7 +135,7 @@ export const Followers = () => {
           </p>
         ) : (
           users.map((user, index) => (
-            <article className="posts__post" key={index}>
+            <article className="posts__post4" key={index}>
               <div className="post__container">
                 <div className="post__image-user">
                   <Link to="#" className="post__image-link">
@@ -156,18 +156,14 @@ export const Followers = () => {
                 </div>
 
                 <div className="post__body">
-                  <div className="post__user-info">
-                    <Link to="#" className="user-info__name">
-                      {user.name} {user.surname}{" "}
-                    </Link>
-                    <span className="user-info__divider"> | </span>
-                    <Link to="#" className="user-info__create-date">
-                      {user.created_at}{" "}
-                    </Link>
+                    <div className="post__user-info">
+                      <Link to="#" className="user-info__name">
+                        {user.name} {user.surname}
+                      </Link>
+                    </div>
+                    <h4 className="post__content">{user.bio}</h4>
                   </div>
-                  <h4 className="post__content">{user.bio}</h4>{" "}
                 </div>
-              </div>
               {/* Solo muestra los botones cuando el usuario no es con el que me estoy identificando */}
               {user._id != auth._id && (
                 <div className="post__buttons">

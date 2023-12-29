@@ -12,7 +12,6 @@ export const Following = () => {
   const [following, setFollowing] = useState([]);
   const token = localStorage.getItem("token");
   const params = useParams();
-
   useEffect(() => {
     getUsers(1);
   }, []);
@@ -21,7 +20,6 @@ export const Following = () => {
     setLoading(true);
 
     try {
-      //sacar el user id de la url
       const userId = params.userId;
       const request = await fetch(
         `http://localhost:5000/api/following/${userId}/${nextPage}`,
@@ -129,7 +127,7 @@ export const Following = () => {
         <h1 className="content__title">Usuarios que te sigen</h1>
       </header>
 
-      <div className="content__posts">
+      <div className="content__posts3">
         {loading ? (
           <p className="loading__users">
             Cargando usuarios
@@ -138,7 +136,7 @@ export const Following = () => {
           </p>
         ) : (
           users.map((user, index) => (
-            <article className="posts__post" key={index}>
+            <article className="posts__post3" key={index}>
               <div className="post__container">
                 <div className="post__image-user">
                   <Link to="#" className="post__image-link">
@@ -162,10 +160,6 @@ export const Following = () => {
                   <div className="post__user-info">
                     <Link to="#" className="user-info__name">
                       {user.name} {user.surname}{" "}
-                    </Link>
-                    <span className="user-info__divider"> | </span>
-                    <Link to="#" className="user-info__create-date">
-                      {user.created_at}{" "}
                     </Link>
                   </div>
                   <h4 className="post__content">{user.bio}</h4>{" "}

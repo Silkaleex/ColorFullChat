@@ -128,10 +128,8 @@ export const Followers = () => {
 
       <div className="content__posts3">
         {loading ? (
-          <p className="loading__users">
-            Cargando usuarios
-            <br />
-            <span className="loader"></span>
+          <p className="loading__users2">
+            Cargando<span className="loader"></span>
           </p>
         ) : (
           users.map((user, index) => (
@@ -163,29 +161,7 @@ export const Followers = () => {
                     </div>
                     <h4 className="post__content">{user.bio}</h4>
                   </div>
-                </div>
-              {/* Solo muestra los botones cuando el usuario no es con el que me estoy identificando */}
-              {user._id != auth._id && (
-                <div className="post__buttons">
-                  {!following.includes(user._id) && (
-                    <button
-                      className="post__button post__button--green"
-                      onClick={() => follow(user._id)}
-                    >
-                      Seguir
-                    </button>
-                  )}
-
-                  {following.includes(user._id) && (
-                    <button
-                      className="post__button post__button--red"
-                      onClick={() => unfollow(user._id)}
-                    >
-                      Dejar de Seguir
-                    </button>
-                  )}
-                </div>
-              )}
+                </div>            
             </article>
           ))
         )}

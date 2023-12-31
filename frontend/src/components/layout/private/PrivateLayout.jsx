@@ -9,11 +9,10 @@ export const PrivateLayout = () => {
   if (loading == true) {
     return (
       <>
-        <div className="container__load">
-          <div>
-            <div>          
-                <h1 className="load">Cargando<span className="loader"></span></h1>       
-            </div>
+        <div className="container__loads">
+          <div className="loadings">
+            <h1 className="loads">Cargando</h1>
+            <span className="loaders"></span>
           </div>
         </div>
       </>

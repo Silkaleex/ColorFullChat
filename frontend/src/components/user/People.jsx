@@ -11,6 +11,7 @@ export const People = () => {
   const [more, setMore] = useState(true);
   const [following, setFollowing] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
+  const [buttonDisabled, setButtonDisabled] = useState(false); // Mover aquí
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -50,19 +51,22 @@ export const People = () => {
     getUsers(next);
   };
 
-  const follow = async (user) => {
+  const toggleFollow = async (user) => {
     try {
+      // Desactivar el botón al hacer clic
+      setButtonDisabled(true);
+  
       if (!user || !user._id) {
         console.error("No se proporcionó un usuario válido");
         return;
       }
-
-      if (user.isPrivate) {
-        // Si el usuario es privado, enviar una solicitud de amistad
+  
+      if (following.includes(user._id)) {
+        // Si ya está siguiendo al usuario, dejar de seguir
         const request = await fetch(
-          `http://localhost:5000/api/peticion/${user._id}`,
+          `http://localhost:5000/api/unfollow/${user._id}`,
           {
-            method: "POST",
+            method: "DELETE",
             headers: {
               "Content-type": "application/json",
               Authorization: token,
@@ -70,15 +74,16 @@ export const People = () => {
           }
         );
         const data = await request.json();
-
-        if (data.success) {
-          // Actualizar las solicitudes pendientes solo si la solicitud se envió correctamente
-          setPendingRequests([...pendingRequests, user._id]);
-        } else {
-          console.error("Error al enviar la solicitud de amistad", data.message);
+  
+        if (data.status === "success") {
+          setFollowing((prevFollowing) =>
+            prevFollowing.filter(
+              (followingUserId) => followingUserId !== user._id.toString()
+            )
+          );
         }
       } else {
-        // Si el usuario es público, seguirlo directamente
+        // Si no está siguiendo al usuario, seguirlo
         const request = await fetch(
           `http://localhost:5000/api/follow/${user._id}`,
           {
@@ -91,56 +96,34 @@ export const People = () => {
           }
         );
         const data = await request.json();
-
+  
         if (data.status === "success") {
           setFollowing([...following, user._id]);
         }
       }
+  
+      // Recargar la página después de seguir/dejar de seguir
+      window.location.reload();
     } catch (error) {
-      console.error("No pudiste seguir a ese usuario", error);
-    }
-  };
-
-  const unfollow = async (userId) => {
-    try {
-      const request = await fetch(
-        `http://localhost:5000/api/unfollow/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: token,
-          },
-        }
+      console.error(
+        "No se pudo realizar la acción de seguir/dejar de seguir",
+        error
       );
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setFollowing((prevFollowing) =>
-          prevFollowing.filter(
-            (followingUserId) => followingUserId !== userId.toString()
-          )
-        );
-      }
-    } catch (error) {
-      console.error("No pudiste dejar de seguir a ese usuario", error);
+    } finally {
+      setButtonDisabled(true);
     }
   };
-
   return (
     <>
       <div className="fondo-perfil2">
         <header className="content__header">
           <h1 className="content__title">Usuarios</h1>
         </header>
-  
         <div className="content__pos">
           {loading ? (
-            <p className="loading__users">
-              Cargando usuarios
-              <br />
-              <span className="loader"></span>
-            </p>
+            <h2 className="loading__users">
+              Cargando<span className="loader"></span>
+            </h2>
           ) : (
             users.map((user, index) => (
               <article className="posts__post2" key={index}>
@@ -162,7 +145,7 @@ export const People = () => {
                       )}
                     </Link>
                   </div>
-  
+
                   <div className="post__body">
                     <div className="post__user-info">
                       <Link to="#" className="user-info__name">
@@ -175,25 +158,13 @@ export const People = () => {
                 {/* Solo muestra los botones cuando el usuario no es con el que me estoy identificando */}
                 {user._id !== auth._id && (
                   <div className="post__buttons">
-                    {!following.includes(user._id) && (
-                      <button
-                        className="post__button post__button--green"
-                        onClick={() => follow(user)}
-                      >
-                        {user.isPrivate && pendingRequests.includes(user._id)
-                          ? "Petición Pendiente"
-                          : "Seguir"}
-                      </button>
-                    )}
-  
-                    {following.includes(user._id) && (
-                      <button
-                        className="post__button post__button--red"
-                        onClick={() => unfollow(user._id)}
-                      >
-                        Dejar de Seguir
-                      </button>
-                    )}
+                    <button
+                      className={`post__button ${following.includes(user._id) ? 'post__button--red' : 'post__button--green'}`}
+                      onClick={() => toggleFollow(user)}
+                      disabled={buttonDisabled}
+                    >
+                      {following.includes(user._id) ? 'Dejar de Seguir' : 'Seguir'}
+                    </button>
                   </div>
                 )}
               </article>
@@ -202,7 +173,7 @@ export const People = () => {
           {!loading && more && (
             <div className="content__container-btn">
               <button className="content__btn-more-post" onClick={nextPage}>
-                Ver mas Personas
+                Ver más Personas
               </button>
             </div>
           )}
@@ -210,4 +181,4 @@ export const People = () => {
       </div>
     </>
   );
-          }  
+};

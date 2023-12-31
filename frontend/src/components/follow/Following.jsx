@@ -129,10 +129,8 @@ export const Following = () => {
 
       <div className="content__posts3">
         {loading ? (
-          <p className="loading__users">
-            Cargando usuarios
-            <br />
-            <span className="loader"></span>
+          <p className="loading__users2">
+            Cargando<span className="loader"></span>
           </p>
         ) : (
           users.map((user, index) => (
@@ -160,6 +158,10 @@ export const Following = () => {
                   <div className="post__user-info">
                     <Link to="#" className="user-info__name">
                       {user.name} {user.surname}{" "}
+                    </Link>
+                    <span className="user-info__divider"> | </span>
+                    <Link to="#" className="user-info__create-date">
+                      {user.created_at}{" "}
                     </Link>
                   </div>
                   <h4 className="post__content">{user.bio}</h4>{" "}

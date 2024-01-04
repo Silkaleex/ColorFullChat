@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 
 require("dotenv").config();
 const app = express();
@@ -46,15 +46,12 @@ const eventosRouter = require("./routes/EventosRouter");
 const followRouter = require("./routes/FollowRouter");
 const publicationRouter = require("./routes/PublicationRouter");
 const ChatRouter = require("./routes/ChatRouter");
-const PeticionRouter = require("./routes/PeticionRouter");
 
 app.use("/api", userRouter);
 app.use("/api", eventosRouter);
 app.use("/api", followRouter);
 app.use("/api", publicationRouter);
 app.use("/api", ChatRouter);
-app.use("/api",PeticionRouter);
-
 
 //cargando rutas
 const URL = process.env.mongo_db;

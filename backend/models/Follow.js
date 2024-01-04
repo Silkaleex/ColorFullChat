@@ -1,4 +1,4 @@
-const {Schema, model} = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const FollowSchema = Schema({
     user: {
@@ -8,6 +8,11 @@ const FollowSchema = Schema({
     followed: {
         type: Schema.ObjectId,
         ref: "User"
+    },
+    action: {
+        type: String,
+        enum: ["follow", "unfollow"],
+        required: true
     },
     created_at: {
         type: Date,

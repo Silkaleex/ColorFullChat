@@ -46,12 +46,15 @@ const eventosRouter = require("./routes/EventosRouter");
 const followRouter = require("./routes/FollowRouter");
 const publicationRouter = require("./routes/PublicationRouter");
 const ChatRouter = require("./routes/ChatRouter");
+const LikesRouter = require("./routes/LikesRouter");
 
 app.use("/api", userRouter);
 app.use("/api", eventosRouter);
 app.use("/api", followRouter);
 app.use("/api", publicationRouter);
 app.use("/api", ChatRouter);
+app.use("/api",LikesRouter);
+
 
 //cargando rutas
 const URL = process.env.mongo_db;

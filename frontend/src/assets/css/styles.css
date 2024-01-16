@@ -1301,3 +1301,21 @@ input[type="submit"]:hover {
   padding: 1px 5px;
   border: none;
 }
+/*Likes en las publicaciones*/
+.megustas{
+  font-size: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.icono_like_okey {
+  color:grey;
+  }
+  
+.icono_like_okey {
+color:red;
+}
+
+.numeros_like{
+  margin: -11px 0px 0px 20px;
+}
